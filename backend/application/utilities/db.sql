@@ -1,3 +1,5 @@
+-- admins, products, product images table creation
+
 CREATE TABLE IF NOT EXISTS admins (
     id SERIAL PRIMARY KEY,
     email TEXT UNIQUE NOT NULL,
