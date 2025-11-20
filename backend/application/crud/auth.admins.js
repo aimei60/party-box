@@ -41,7 +41,7 @@ export async function createAdmin(currentAdmin, { email, password, role }) {
   const admin = await prisma.admins.create({
     data: {
       email,
-      password_hash,
+      password: password_hash,
       role
     }
   });
@@ -150,7 +150,7 @@ export async function updateAdmin(currentAdmin, id, { email, password, role }) {
   }
 
   if (password) {
-    data.password_hash = await bcrypt.hash(password, 12);
+    data.password = await bcrypt.hash(password, 12);
   }
 
   const admin = await prisma.admins.update({
