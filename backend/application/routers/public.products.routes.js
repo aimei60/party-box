@@ -3,6 +3,7 @@ import { getAllProducts, getProductById } from '../crud/public.products.js'
 
 const router = express.Router()
 
+//function to get all products - for main product page
 router.get('/products', async (req, res) => {
     try {
         const products = await getAllProducts()
@@ -12,6 +13,7 @@ router.get('/products', async (req, res) => {
     }
 })
 
+//function to show products and all their images - on the individual product page
 router.get('/products/:id', async (req, res) => {
     try {
         const product = await getProductById(req.params.id)

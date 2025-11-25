@@ -1,13 +1,15 @@
 import express from 'express'
 import dotenv from 'dotenv'
 import productsRouter from './routers/public.products.routes.js'
+import authRouter from './routers/auth.admins.routes.js'
 
 const app = express()
 dotenv.config()
 
 app.use(express.json())
 
-app.use('/api', productsRouter)
+app.use(productsRouter)
+app.use(authRouter)
 
 const PORT = process.env.PORT
 

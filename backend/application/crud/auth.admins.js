@@ -4,7 +4,7 @@ import bcrypt from "bcryptjs";
 const prisma = new PrismaClient();
 
 // function when returning admin details, it doesnt return hashed password
-function toPublicAdmin(admin) {
+export function toPublicAdmin(admin) {
 
   return {
     id: admin.id,
