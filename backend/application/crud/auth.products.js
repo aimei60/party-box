@@ -35,6 +35,8 @@ export async function createProduct(currentAdmin, productData) {
       currency: productData.currency,
       active: active,
       etsy_url: etsy_url,
+      created_by_admin_id: currentAdmin.id,
+      updated_by_admin_id: currentAdmin.id
     }
   });
 
