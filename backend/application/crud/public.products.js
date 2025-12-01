@@ -1,6 +1,4 @@
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import prisma from "../utilities/prisma.js";
 
 // returns all of the products on the product page with one image and brief product details
 export async function getAllProducts() {
