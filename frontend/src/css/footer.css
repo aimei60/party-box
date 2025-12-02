@@ -1,5 +1,5 @@
 .footer {
-    background-color: #628ff0;
+    background-color: #0aa0c1;
     color: white;
     font-family: 'Nunito', sans-serif;
     padding: 2.5rem 1.25rem 1.25rem 1.25rem;
@@ -19,13 +19,24 @@
 }
 
 .zogy {
-    color: #efd73b;
+    color: #ffffff;
+    font-family: Candara, Calibri, Segoe, Segoe UI, Optima, Arial, sans-serif;
+    font-weight: 800;
 }
 
 .footer-logo {
+    color: #f8e778;
     font-size: 1.5rem;
-    font-weight: 700;
+    font-family: Candara, Calibri, Segoe, Segoe UI, Optima, Arial, sans-serif;
+    font-weight: 800;
     margin-bottom: 0.625rem;
+}
+
+.footer-icon {
+    margin-left: 0.1rem;
+    width: 22px;
+    height: 22px;
+    fill: #f8e778;  
 }
 
 .footer-tagline {
@@ -47,7 +58,7 @@
 
 .footer-column a {
     display: block;
-    color: white;
+    color: #ffffff;
     opacity: 0.9;
     text-decoration: none;
     padding: 0.1875rem 0;
@@ -57,6 +68,10 @@
 .footer-column a:hover {
     opacity: 1;
     transform: translateX(0.125rem);
+}
+
+.footer-title {
+    color: #f8e778;
 }
 
 .footer-etsy p {
@@ -72,6 +87,13 @@
     border-top: 1px solid rgba(255, 255, 255, 0.3);
     font-size: 0.875rem;
     opacity: 0.8;
+}
+
+.party {
+    margin-left: 0.3rem;
+    width: 25px;
+    height: 25px;
+    fill: #f8e778;
 }
 
 /*for smaller screens*/

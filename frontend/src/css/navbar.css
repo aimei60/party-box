@@ -5,7 +5,7 @@
 
 .header {
     width: 100%;
-    background-color: #628ff0;
+    background-color: #0aa0c1;
     padding: 0.9375rem 0;
     position: sticky;
     top: 0;
@@ -31,15 +31,19 @@
     font-size: 1.75rem;
     font-weight: bold;
     text-decoration: none;
-    letter-spacing: 0.0625rem;
+    letter-spacing: 0.0925rem;
 }
 
 .logo-z {
-    color: #efd73b;
+    color: #ffffff;
+    font-family: Candara, Calibri, Segoe, Segoe UI, Optima, Arial, sans-serif;
+    font-weight: 800;
 }
 
 .logo-s {
-    color: #ffffff;
+    color: #f8e778;
+    font-family: Candara, Calibri, Segoe, Segoe UI, Optima, Arial, sans-serif;
+    font-weight: 800;
 }
 
 .nav {
@@ -72,7 +76,7 @@
     width: 2rem;
     height: 2rem;
     border-radius: 50%;
-    background-color: #628ff0;
+    background-color: #0aa0c1;
     border: none;
     cursor: pointer;
     transition: transform 0.2s ease;
@@ -81,4 +85,16 @@
 .magnifying-glass:hover,
 .shopping-bag:hover {
     transform: scale(1.1);
+}
+
+.icon {
+  width: 22px;
+  height: 22px;
+  fill: white;
+}
+
+.icon1 {
+  width: 25px;
+  height: 25px;
+  fill: white;
 }

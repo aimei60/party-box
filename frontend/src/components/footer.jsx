@@ -10,26 +10,27 @@ function Footer() {
         <div className="footer-brand">
             <h2 className="footer-logo">
                 <span className="zogy">Zogy</span> Studios 
-                <IoBalloon size={22} color="yellow" style={{ marginLeft: "0.3rem" }} />
+                <IoBalloon className="footer-icon" />
             </h2>
         </div>
         <div className="footer-links">
             <div className="footer-column">
-                <h3>SHOP</h3>
+                <h3 className="footer-title">SHOP</h3>
                 <Link to="/shop">All Boxes</Link>
           </div>
           <div className="footer-column">
-            <h3>HELP</h3>
+            <h3 className="footer-title">HELP</h3>
             <Link to="/faq">FAQ</Link>
             <Link to="/contact">Contact Us</Link>
           </div>
           <div className="footer-column">
-            <h3>ABOUT</h3>
+            <h3 className="footer-title">ABOUT</h3>
             <Link to="/about">Our Story</Link>
           </div>
         </div>
         <div className="footer-etsy">
-            <p>Join the party on Etsy <GiPartyPopper size={22} color="yellow"/></p>
+          <p>Join the party on Etsy 
+            <GiPartyPopper className="party"/></p>
         </div>
       </div>
       <div className="footer-bottom">© 2025 Zogy Studios</div>

@@ -22,10 +22,10 @@ function Navbar() {
             </div>
             <div className="right">
                 <button className="magnifying-glass">
-                    <FaMagnifyingGlass size={22} color="white" />
+                    <FaMagnifyingGlass className="icon" />
                 </button>
                 <button className="shopping-bag">
-                    <HiShoppingBag size={25} color="white" />
+                    <HiShoppingBag className="icon1" />
                 </button>
             </div>
         </div>
