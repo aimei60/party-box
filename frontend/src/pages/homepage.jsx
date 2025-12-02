@@ -8,7 +8,6 @@ function Homepage() {
         <>
         <Navbar/>
         <Banner/>
-        <h1>welcome to the homepage</h1>
         <Footer/>
         </>
     );

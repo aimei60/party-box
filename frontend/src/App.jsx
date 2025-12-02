@@ -4,6 +4,7 @@ import Shop from './pages/shop'
 import Faq from './pages/faq'
 import Contact from './pages/contact'
 import About from "./pages/about";
+import './css/app.css'
 
 function App() {
   return (
