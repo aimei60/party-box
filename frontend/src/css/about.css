@@ -11,7 +11,7 @@
 }
 
 .about-title {
-    color: #f6c605;
+    color: #514e4e;
     text-align: center;
     font-size: 2rem;
     font-weight: 700;
@@ -25,7 +25,7 @@
     font-weight: 550;
     line-height: 1.7;
     color: #514e4e;
-    background: rgb(137, 221, 234);
+    background: rgb(235, 251, 252);
     padding: 2rem 2.2rem;
     border-radius: 1rem;
     box-shadow: 0 3px 15px rgba(0,0,0,0.08);
@@ -34,6 +34,6 @@
 .about-heart {
     width: 22px;
     height: 22px;
-    fill: #f8e778;
+    fill: #f3db3b;
     vertical-align: middle;
 }
