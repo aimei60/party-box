@@ -1,4 +1,193 @@
-html, body { 
+html, 
+body {
   margin: 0; 
   padding: 0; 
+}
+
+/*bestsellers section */
+.bestseller-header {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 4rem 0;
+  background-color: rgb(188, 243, 243);
+}
+
+.bestseller-inner {
+  max-width: 1200px;
+  text-align: center;
+  padding: 0 1rem;
+}
+
+.bestseller-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+  color:  #514e4e;
+}
+
+.bestseller-favourite {
+  font-size: 1.2rem;
+  color: #777;
+  margin-bottom: 2rem;
+}
+
+.boxes-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.boxes-section {
+  background: rgb(235, 251, 252);
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.08);
+  transition: transform 0.2s ease;
+}
+
+.boxes-section:hover {
+  transform: translateY(-5px);
+}
+
+.product-picture img {
+  width: 100%;
+  height: 250px;
+  object-fit: contain;
+  margin-bottom: 1rem;
+}
+
+.product-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+  color: #514e4e;
+}
+
+.product-price {
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-bottom: 0.6rem;
+  color: #333;
+}
+
+.link-etsy {
+  font-size: 1.1rem;
+  color: #ff7c03;
+  font-weight: 500;
+}
+
+/*for smaller screen */
+@media (max-width: 768px) {
+  .boxes-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .product-picture img {
+    height: 200px;
+  }
+}
+
+/*Reviews section */
+.review-section {
+  padding: 4rem 1rem;
+  background: rgb(235, 251, 252);
+  text-align: center;
+  font-family: "Georgia", serif;
+}
+
+.review-title {
+  font-size: 1.9rem;
+  font-weight: 600;
+  margin-bottom: 0.9rem;
+  color: #514e4e;
+}
+
+.reviews-grid {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 1rem 0;
+  text-align: left;
+  border-bottom: 1px solid #ccc;
+}
+
+.review-stars {
+  font-size: 1.7rem;
+  color: #d4af37;
+  margin-bottom: 0.5rem;
+}
+
+.review-text {
+  font-size: 1.25rem;
+  font-style: italic;
+  line-height: 1.7;
+  color: #333;
+  margin-bottom: 0.6rem;
+}
+
+.reviewer {
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #111;
+  letter-spacing: 0.5px;
+}
+
+/* for smaller screens */
+@media (max-width: 600px) {
+  .review-title {
+    font-size: 1.8rem;
+  }
+
+  .review-text {
+    font-size: 1rem;
+  }
+}
+
+/*bottom section */
+.bottom-section {
+  margin-top: 2.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+  font-family: "Georgia", serif;
+  text-align: left;
+}
+
+.shop {
+  font-size: 1.3rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.shop:hover {
+  color: #d4af37;
+}
+
+.more-reviews {
+  font-size: 1.1rem;
+  color: #444;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  text-decoration: underline;
+}
+
+.more-reviews:hover {
+  color: #ff7c03;
+}
+
+/*for smaller screens */
+@media (max-width: 600px) {
+  .bottom-section {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .shop {
+    font-size: 1.1rem;
+  }
 }
