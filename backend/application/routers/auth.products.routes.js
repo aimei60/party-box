@@ -1,6 +1,7 @@
-import express from 'express' 
-import { createProduct, updateProduct, deleteProduct, getAdminProducts } from '../crud/auth.products.js'
-import { generateToken, authRequired} from '../auth.js'
+//router functions for admin products
+import express from 'express';
+import { createProduct, updateProduct, deleteProduct, getAdminProducts } from '../crud/auth.products.js';
+import { generateToken, authRequired} from '../auth.js';
 
 const router = express.Router()
 

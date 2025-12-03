@@ -62,12 +62,12 @@
     opacity: 0.9;
     text-decoration: none;
     padding: 0.1875rem 0;
-    transition: opacity 0.2s ease, transform 0.15s ease;
+    transition: opacity 0.2s ease, transform 0.15s ease; /*smooth animation */
 }
 
 .footer-column a:hover {
-    opacity: 1;
-    transform: translateX(0.125rem);
+    opacity: 1; /*full brightness */
+    transform: translateX(0.125rem); /*tiny shift to the right */
 }
 
 .footer-title {

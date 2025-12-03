@@ -1,6 +1,7 @@
-import express from 'express' 
-import { addProductImage, updateProductImage, deleteProductImage } from '../crud/auth.product.images.js'
-import { generateToken, authRequired} from '../auth.js'
+//router functions for product images
+import express from 'express';
+import { addProductImage, updateProductImage, deleteProductImage } from '../crud/auth.product.images.js';
+import { generateToken, authRequired} from '../auth.js';
 
 const router = express.Router()
 

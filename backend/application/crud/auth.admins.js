@@ -1,7 +1,6 @@
-import { PrismaClient } from "@prisma/client";
+//crud functions for auth admins
+import prisma from "../utilities/prisma.js";
 import bcrypt from "bcryptjs";
-
-const prisma = new PrismaClient();
 
 // function when returning admin details, it doesnt return hashed password
 export function toPublicAdmin(admin) {
@@ -203,5 +202,3 @@ export async function deleteAdmin(currentAdmin, id) {
 
   return toPublicAdmin(admin);
 }
-
-export default prisma;

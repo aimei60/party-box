@@ -1,6 +1,5 @@
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+//crud functions for auth product images
+import prisma from "../utilities/prisma.js";
 
 //add new image
 export async function addProductImage(currentAdmin, productId, imageData) {
@@ -175,5 +174,3 @@ export async function deleteProductImage(currentAdmin, productId, imageId) {
 
   return deleted;
 }
-
-export default prisma;

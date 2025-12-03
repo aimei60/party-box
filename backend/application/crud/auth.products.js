@@ -1,6 +1,5 @@
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+//crud functions for products
+import prisma from "../utilities/prisma.js";
 
 // create product if you are admin or superadmin
 export async function createProduct(currentAdmin, productData) {
@@ -135,5 +134,3 @@ export async function getAdminProducts(currentAdmin) {
 
   return products;
 }
-
-export default prisma;

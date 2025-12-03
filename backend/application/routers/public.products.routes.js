@@ -1,5 +1,6 @@
-import express from 'express'
-import { getAllProducts, getProductById } from '../crud/public.products.js'
+//router functions for public products
+import express from 'express';
+import { getAllProducts, getProductById } from '../crud/public.products.js';
 
 const router = express.Router()
 

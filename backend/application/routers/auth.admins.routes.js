@@ -1,8 +1,9 @@
-import express from 'express'
-import prisma from '../crud/auth.admins.js'  
-import bcrypt from "bcryptjs"  
-import { generateToken, authRequired} from '../auth.js'
-import { toPublicAdmin, createAdmin, listAdmins, getAdminById, updateAdmin, deleteAdmin  } from '../crud/auth.admins.js'
+//router functions for auth admins
+import express from 'express';
+import prisma from "../utilities/prisma.js";
+import bcrypt from "bcryptjs";
+import { generateToken, authRequired} from '../auth.js';
+import { toPublicAdmin, createAdmin, listAdmins, getAdminById, updateAdmin, deleteAdmin  } from '../crud/auth.admins.js';
 
 const router = express.Router()
 

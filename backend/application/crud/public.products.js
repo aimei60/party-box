@@ -1,3 +1,4 @@
+//crud functions for public products
 import prisma from "../utilities/prisma.js";
 
 // returns all of the products on the product page with one image and brief product details
@@ -90,5 +91,3 @@ export async function getProductById(id) {
 
   return result;
 }
-
-export default prisma;
