@@ -5,6 +5,7 @@ import '../css/homepage.css';
 import sonic from '../assets/Sonic-angled.png';
 import peppa from '../assets/p1.png';
 import minecraft from '../assets/f3.png';
+import { Link } from "react-router-dom";
 
 function Homepage() {
     return (
@@ -65,7 +66,7 @@ function Homepage() {
                 </div>
             </div>
             <div className="bottom-section">
-                <div className="shop">Shop</div>
+                <Link to="/shop" className="shop">Shop</Link>
                 <a className="more-reviews" href="https://www.etsy.com/shop/ZogyStudios?ref=shop_profile&listing_id=1584457460#reviews" target="_blank" rel="noopener noreferrer">More reviews on Etsy</a>
             </div>
         </div>

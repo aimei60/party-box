@@ -21,12 +21,8 @@ function Navbar() {
                 </nav>
             </div>
             <div className="right">
-                <button className="magnifying-glass">
-                    <FaMagnifyingGlass className="icon" />
-                </button>
-                <button className="shopping-bag">
-                    <HiShoppingBag className="icon1" />
-                </button>
+                <button className="magnifying-glass"><FaMagnifyingGlass className="icon"/></button>
+                <Link to="/shop" className="shopping-bag"><HiShoppingBag className="icon1"/></Link>
             </div>
         </div>
     </header>

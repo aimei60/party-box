@@ -9,29 +9,27 @@ function Footer() {
       <div className="footer-inner">
         <div className="footer-brand">
           <h2 className="footer-logo">
-            <span className="zogy">Zogy</span> Studios 
-            <IoBalloon className="footer-icon" />
+            <span className="zogy">Zogy</span> Studios <IoBalloon className="footer-icon" />
           </h2>
         </div>
         <div className="footer-links">
-            <div className="footer-column">
-              <h3 className="footer-title">SHOP</h3>
+          <div className="footer-column">
+            <h3 className="footer-title">SHOP</h3>
               <Link to="/shop">All Boxes</Link>
-            </div>
-            <div className="footer-column">
-              <h3 className="footer-title">HELP</h3>
-              <Link to="/faq">FAQ</Link>
-              <Link to="/contact">Contact Us</Link>
-            </div>
-            <div className="footer-column">
-              <h3 className="footer-title">ABOUT</h3>
-              <Link to="/about">Our Story</Link>
-            </div>
+          </div>
+          <div className="footer-column">
+            <h3 className="footer-title">HELP</h3>
+            <Link to="/faq">FAQ</Link>
+            <Link to="/contact">Contact Us</Link>
+          </div>
+          <div className="footer-column">
+            <h3 className="footer-title">ABOUT</h3>
+            <Link to="/about">Our Story</Link>
+          </div>
          </div>
          <div className="footer-etsy">
-          <p>Join the party on Etsy 
-            <GiPartyPopper className="party"/></p>
-        </div>
+          <a className="party-text" href="https://www.etsy.com/shop/ZogyStudios?ref=shop_profile&listing_id=1584457460" target="_blank" rel="noopener noreferrer">Join the party on Etsy<GiPartyPopper className="party"/></a>
+          </div>
         </div>
       <div className="footer-bottom">© 2025 Zogy Studios</div>
     </footer>

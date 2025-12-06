@@ -96,6 +96,12 @@
     fill: #f8e778;
 }
 
+.party-text {
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: 600;
+}
+
 /*for smaller screens*/
 @media (max-width: 800px) {
   .footer-inner {

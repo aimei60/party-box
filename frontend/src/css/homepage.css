@@ -162,6 +162,8 @@ body {
   font-weight: 700;
   cursor: pointer;
   transition: color 0.2s ease;
+  text-decoration: none;
+  color: #111;
 }
 
 .shop:hover {
