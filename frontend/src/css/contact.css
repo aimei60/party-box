@@ -62,13 +62,13 @@
   outline: none;
   transition: border-color 0.2s, box-shadow 0.2s;
   font-family: inherit;
-  color: #7a014e;
+  color: #656363;
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
-  border-color: #f7b9b9;
-  box-shadow: 0 0 0 0.2rem rgba(247, 185, 185, 0.3);
+  border-color: #0aa0c1;
+  box-shadow: 0 0 0 0.2rem rgba(185, 222, 247, 0.3);
 }
 
 .form-group textarea {
