@@ -11,6 +11,7 @@ function Contact() {
                 <div className="contact-box">
                     <h2 className="contact-title">Contact</h2>
                     <p className="contact-subtitle">Got a question or a custom query? Message us!</p>
+                    <p className="extra-info">We aim to respond to all emails within 48 hours but at busy times this may take a little longer.</p>
                     <form className="contact-form">
                         <div className="form-group">
                             <label htmlFor="name">Name</label>

@@ -36,6 +36,13 @@
   margin-bottom: 2rem;
 }
 
+.extra-info {
+  color: #656363;
+  margin-bottom: 2rem;
+  font-weight: 200rem;
+  font-size: 1.08rem;
+}
+
 .contact-form {
   display: flex;
   flex-direction: column;
