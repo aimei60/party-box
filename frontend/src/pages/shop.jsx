@@ -8,13 +8,9 @@ function Shop() {
         <Navbar/>
         <div className="shop-container">
             <div className="shop-inner-container">
-                <div className="category-container">
-                    <div className="category-inner-container"></div>
-                </div>
                 <div className="products-box-section">
                     <div className="products-box-inner-section"></div>
                 </div>
-
             </div>
         </div>
         <Footer/>
