@@ -11,7 +11,7 @@ function Shop() {
         {
             id: 1,
             title: "Baby Shark Party Box",
-            description: "A Baby Ahark themed party box.",
+            description: "A Baby Shark themed party box.",
             price: 200,
             currency: "GBP",
             main_image: bbyshrk,
@@ -39,7 +39,7 @@ function Shop() {
         <Navbar/>
         <div className="shop-container">
             <div className="shop-inner-container">
-                <h1 className="shop-title">Shop</h1>
+                <div className="shop-title">Shop</div>
                 <div className="products-grid">{mocks.map((product) => (<ProductCard key={product.id} product={product} />))}</div>
             </div>
         </div>

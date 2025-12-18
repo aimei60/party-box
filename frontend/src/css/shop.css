@@ -1,5 +1,4 @@
 .shop-container {
-  width: 100%;
   padding: 2rem 1rem 3rem;
   background-color: rgb(188, 243, 243);
 }
@@ -10,10 +9,12 @@
 }
 
 .shop-title {
-  font-size: 2rem;
-  font-weight: 600;
+  font-size: 2.2rem;
+  font-weight: 900;
   text-align: center;
-  margin: 0 0 2rem;
+  margin: 0.7rem 0 2rem 0;
+  color: #514e4e;
+  text-decoration: underline;
 }
 
 .products-grid {
@@ -31,6 +32,6 @@
   }
 
   .shop-title {
-    font-size: 1.6rem;
+    font-size: 1.9rem;
   }
 }

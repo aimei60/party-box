@@ -3,8 +3,11 @@ import { Link } from "react-router-dom";
 import { HiShoppingBag } from "react-icons/hi";
 import { FaMagnifyingGlass } from "react-icons/fa6"
 import '../css/navbar.css'
+import { useState } from "react";
 
 function Navbar() {
+    const [showSearch, setShowSearch] = useState(false)
+
     return (
     <header className="header">
         <div className="header-inner">
@@ -21,7 +24,8 @@ function Navbar() {
                 </nav>
             </div>
             <div className="right">
-                <button className="magnifying-glass"><FaMagnifyingGlass className="icon"/></button>
+                <button className="magnifying-glass" onClick={() => setShowSearch(!showSearch)}><FaMagnifyingGlass className="icon"/></button>
+                {showSearch && (<input type="search" className="navbar-search" placeholder="Search products..."/>)}
                 <Link to="/shop" className="shopping-bag"><HiShoppingBag className="icon1"/></Link>
             </div>
         </div>
