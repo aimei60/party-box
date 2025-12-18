@@ -1,1 +1,36 @@
+.shop-container {
+  width: 100%;
+  padding: 2rem 1rem 3rem;
+  background-color: rgb(188, 243, 243);
+}
 
+.shop-inner-container {
+  max-width: 72rem;
+  margin: 0 auto;
+}
+
+.shop-title {
+  font-size: 2rem;
+  font-weight: 600;
+  text-align: center;
+  margin: 0 0 2rem;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.75rem;
+  align-items: start;
+}
+
+/*for smaller screens*/
+@media (max-width: 64rem) {
+  .products-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+
+  .shop-title {
+    font-size: 1.6rem;
+  }
+}
