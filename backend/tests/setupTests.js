@@ -1,6 +1,13 @@
 //clears test db before every test and disconnects prisma after all tests
 import prisma from "../application/utilities/prisma.js";
 
+//make sure it connects to test db or the below error is thrown
+beforeAll(() => {
+  if (!process.env.DATABASE_URL?.includes("test")) {
+    throw new Error("Tests are not running on test DB");
+  }
+});
+
 beforeEach(async () => {
   await prisma.product_images.deleteMany();
   await prisma.products.deleteMany();

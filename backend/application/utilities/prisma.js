@@ -1,4 +1,4 @@
-//sets up prisma client so I can use prisma for my backend
+//sets up prisma client so I can use prisma for the backend
 
 import { PrismaClient } from "@prisma/client";
 

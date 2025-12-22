@@ -1,4 +1,4 @@
-// connects express to postgresal and lets my db be used globally
+// connects express to postgresal and lets the db to be used globally
 
 import dotenv from "dotenv"
 import pkg from "pg"
