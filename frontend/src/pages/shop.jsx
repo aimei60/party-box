@@ -1,4 +1,3 @@
-import Navbar from "../components/Navbar";
 import Footer from "../components/footer";
 import ProductCard from "../components/productcard";
 import '../css/shop.css'
@@ -6,7 +5,7 @@ import bbyshrk from '../assets/baby-shark/bs3.png'
 import peppa from '../assets/peppa-pig/p1.png'
 import bluey from '../assets/bluey/bluey1.png'
 
-function Shop() {
+function Shop({searchText= ""}) {
     const mocks = [
         {
             id: 1,
@@ -34,13 +33,24 @@ function Shop() {
         },
     ];
 
+    const search = searchText.toLowerCase().trim()
+
+    const filteredProducts = mocks.filter((product) => {
+        if (search === "")
+            return true
+
+        const words = product.title.toLowerCase().split(" ");
+
+        return words.some(word => word.startsWith(search));
+    })
+
     return (
         <>
-        <Navbar/>
         <div className="shop-container">
             <div className="shop-inner-container">
                 <div className="shop-title">Shop</div>
-                <div className="products-grid">{mocks.map((product) => (<ProductCard key={product.id} product={product} />))}</div>
+                {filteredProducts.length === 0 && (<p className="no-results">No products found.</p>)}
+                <div className="products-grid">{filteredProducts.map((product) => (<ProductCard key={product.id} product={product} />))}</div>
             </div>
         </div>
         <Footer/>

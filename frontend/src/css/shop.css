@@ -17,6 +17,13 @@
   text-decoration: underline;
 }
 
+.no-results {
+  padding-bottom: 23rem;
+  text-align: center;
+  color: #666;
+  font-size: 1.4rem;
+}
+
 .products-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));

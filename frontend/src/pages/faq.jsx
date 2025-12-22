@@ -5,7 +5,6 @@ import '../css/faq.css'
 function Faq() {
     return (
         <>
-        <Navbar/>
         <div className="faq">
             <div className="faq-inner">
                 <div className="faq-title">FAQ</div>

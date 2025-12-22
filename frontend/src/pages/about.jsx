@@ -6,7 +6,6 @@ import '../css/about.css'
 function About() {
     return (
         <>
-        <Navbar/>
         <div className="about">
             <div className="about-inner">
                 <div className="about-title">Our Story</div>

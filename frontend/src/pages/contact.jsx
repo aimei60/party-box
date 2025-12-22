@@ -5,7 +5,6 @@ import '../css/contact.css'
 function Contact() {
     return (
         <>
-        <Navbar/>
         <div className="contact-container">
             <div className="contact-inner-container">
                 <div className="contact-box">

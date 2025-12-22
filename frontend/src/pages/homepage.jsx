@@ -10,7 +10,6 @@ import { Link } from "react-router-dom";
 function Homepage() {
     return (
         <>
-        <Navbar/>
         <Banner/>
         {/*bestseller section*/}
         <div className="bestseller-header">

@@ -4,9 +4,16 @@ import { HiShoppingBag } from "react-icons/hi";
 import { FaMagnifyingGlass } from "react-icons/fa6"
 import '../css/navbar.css'
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-function Navbar() {
+function Navbar({searchText, setSearchText}) {
     const [showSearch, setShowSearch] = useState(false)
+    const navigate = useNavigate()
+
+    function handleSubmit(e) {
+        e.preventDefault()
+        navigate("/shop")
+    }
 
     return (
     <header className="header">
@@ -25,7 +32,7 @@ function Navbar() {
             </div>
             <div className="right">
                 <button className="magnifying-glass" onClick={() => setShowSearch(!showSearch)}><FaMagnifyingGlass className="icon"/></button>
-                {showSearch && (<input type="search" className="navbar-search" placeholder="Search products..."/>)}
+                {showSearch && (<form onSubmit={handleSubmit}><input type="search" className="navbar-search" placeholder="Search products..." value={searchText} onChange={(e) => {setSearchText(e.target.value); navigate("/shop");}}/></form>)}
                 <Link to="/shop" className="shopping-bag"><HiShoppingBag className="icon1"/></Link>
             </div>
         </div>
