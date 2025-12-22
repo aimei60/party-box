@@ -7,13 +7,18 @@ export async function createProduct(currentAdmin, productData) {
     throw new Error("Not allowed");
   }
 
-  if (!productData.title || !productData.price || !productData.currency) {
+  if (!productData.title || productData.price === undefined  || !productData.currency) {
     throw new Error("title, price and currency are required");
   }
 
   let description = "";
   if (productData.description) {
     description = productData.description;
+  }
+
+  let short_description = null;
+  if (productData.short_description) {
+    short_description = productData.short_description
   }
 
   let active = true;
@@ -30,6 +35,7 @@ export async function createProduct(currentAdmin, productData) {
     data: {
       title: productData.title,
       description: description,
+      short_description: short_description,
       price: productData.price,
       currency: productData.currency,
       active: active,
@@ -70,6 +76,9 @@ export async function updateProduct(currentAdmin, id, productData) {
   if (productData.description !== undefined) {
     data.description = productData.description;
   }
+  if (productData.short_description !== undefined) {
+    data.short_description = productData.short_description;
+  }
   if (productData.price !== undefined) {
     data.price = productData.price;
   }
@@ -82,6 +91,8 @@ export async function updateProduct(currentAdmin, id, productData) {
   if (productData.etsy_url !== undefined) {
     data.etsy_url = productData.etsy_url;
   }
+
+  data.updated_by_admin_id = currentAdmin.id;
   
   const updated = await prisma.products.update({
     where: { id: productId },
