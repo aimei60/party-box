@@ -36,6 +36,7 @@ test("can insert a product linked to admin", async () => {
 
   const productTitle = "Princess Party Box";
   const productDescription = "Pink Princess Party Box";
+  const productShortDescription = "Pink princess party box for kids";
   const productPrice = 2;
   const productCurrency = "GBP";
   const activeStatus = true;
@@ -44,6 +45,7 @@ test("can insert a product linked to admin", async () => {
   const product = await prisma.products.create({
     data: {
       title: productTitle,
+      short_description: productShortDescription,
       description: productDescription,
       price: productPrice,
       currency: productCurrency,
@@ -57,6 +59,7 @@ test("can insert a product linked to admin", async () => {
   expect(product.id).toBeDefined();
   expect(product.title).toBe(productTitle);
   expect(product.description).toBe(productDescription);
+  expect(product.short_description).toBe(productShortDescription);
   expect(product.price).toBe(productPrice);
   expect(product.currency).toBe(productCurrency);
   expect(product.active).toBe(activeStatus);
@@ -90,6 +93,7 @@ test("can insert a product image linked to product", async () => {
     data: {
       title: "Jungle Party Box",
       description: "Jungle Party Theme Box",
+      short_description: "JB",
       price: 5,
       currency: "GBP",
       active: true,

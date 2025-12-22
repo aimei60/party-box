@@ -41,6 +41,7 @@ model products {
   updated_at                                  DateTime?        @default(now()) @db.Timestamp(6)
   created_by_admin_id                         Int?
   updated_by_admin_id                         Int?
+  short_description                           String?
   product_images                              product_images[]
   admins_products_created_by_admin_idToadmins admins?          @relation("products_created_by_admin_idToadmins", fields: [created_by_admin_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   admins_products_updated_by_admin_idToadmins admins?          @relation("products_updated_by_admin_idToadmins", fields: [updated_by_admin_id], references: [id], onDelete: NoAction, onUpdate: NoAction)

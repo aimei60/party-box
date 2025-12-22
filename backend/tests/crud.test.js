@@ -386,6 +386,7 @@ test("creates a product", async () => {
   const productData = {
     title: "Princess Box",
     description: "Pink box",
+    short_description: null,
     price: 10,
     currency: "GBP",
     active: true,
@@ -406,6 +407,7 @@ test("creates a product", async () => {
     updated_by_admin_id: superadmin.id,
     created_at: expect.any(Date),
     updated_at: expect.any(Date),
+    short_description: null
   });
 });
 
@@ -436,6 +438,7 @@ test("updates an existing product", async () => {
       etsy_url: null,
       created_by_admin_id: superadmin.id,
       updated_by_admin_id: superadmin.id,
+      short_description: "JBX"
     },
   });
 
@@ -448,6 +451,7 @@ test("updates an existing product", async () => {
     id: original.id,
     title: "Updated Jungle Box",
     description: "Green box",
+    short_description: "JBX",
     price: 25,
     currency: "GBP",
     active: true,

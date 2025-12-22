@@ -15,6 +15,7 @@ const products = z.object({
     id: z.number().int().optional(),
     title: z.string().min(1, "Title is required"),
     description: z.string().min(1, "Description is required"),
+    short_description: z.string().max(80).optional().nullable(),
     price: z.number().nonnegative(),
     currency: z.string().length(3).default("GBP"),
     active: z.boolean().default(true),
