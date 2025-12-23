@@ -1,9 +1,6 @@
 import Footer from "../components/footer";
 import ProductCard from "../components/productcard";
 import '../css/shop.css'
-import bbyshrk from '../assets/baby-shark/bs3.png'
-import peppa from '../assets/peppa-pig/p1.png'
-import bluey from '../assets/bluey/bluey1.png'
 
 function Shop({searchText= ""}) {
     const mocks = [

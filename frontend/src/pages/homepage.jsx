@@ -1,13 +1,32 @@
-import Navbar from "../components/Navbar";
 import Footer from "../components/footer";
 import Banner from "../components/banner";
 import '../css/homepage.css';
-import sonic from '../assets/Sonic-angled.png';
-import peppa from '../assets/p1.png';
-import minecraft from '../assets/f3.png';
 import { Link } from "react-router-dom";
 
 function Homepage() {
+    const bestSellers = [
+        {
+            title: "Sonic Party Box",
+            price: "£2.00",
+            image: "/images/Sonic-angled.png",
+            etsy: "www.etsy.com/sonic",
+            alt: "Sonic Party Box",
+        },
+        {
+            title: "Peppa Pig Party Box",
+            price: "£2.00",
+            image: "/images/p1.png",
+            etsy: "www.etsy.com/peppapig",
+            alt: "Peppa Pig Party Box",
+        },
+        {
+            title: "Minecraft Party Box",
+            price: "£2.00",
+            image: "/images/f3.png",
+            etsy: "/www.etsy.com/minecraft",
+            alt: "Minecraft Party Box",
+        },
+    ]
     return (
         <>
         <Banner/>
@@ -16,31 +35,13 @@ function Homepage() {
             <div className="bestseller-inner">
                 <div className="bestseller-title">Shop Best Sellers</div>
                 <div className="bestseller-favourite">Customer's favourite party boxes</div>
-                <div className="boxes-grid">
-                    <div className="boxes-section">
-                        <div className="product-picture">
-                            <img src={sonic} alt="Sonic Party Box" />
-                        </div>
-                        <div className="product-title">Sonic Party Box</div>
-                        <div className="product-price">£2.00</div>
-                        <div className="link-etsy">www.etsy.com/sonic</div>
-                    </div>
-                    <div className="boxes-section">
-                        <div className="product-picture">
-                            <img src={peppa} alt="Sonic Party Box" />
-                        </div>
-                        <div className="product-title">Peppa Pig Party Box</div>
-                        <div className="product-price">£2.00</div>
-                        <div className="link-etsy">www.etsy.com/peppapig</div>
-                    </div>
-                    <div className="boxes-section">
-                        <div className="product-picture">
-                            <img src={minecraft} alt="Sonic Party Box" />
-                        </div>
-                        <div className="product-title">Minecraft Party Box</div>
-                        <div className="product-price">£2.00</div>
-                        <div className="link-etsy">www.etsy.com/minecraft</div>
-                    </div>
+                <div className="boxes-grid">{bestSellers.map((item) => (
+                    <div className="boxes-section" key={item.title}>
+                    <div className="product-picture"><img src={item.image} alt={item.alt} /></div>
+                    <div className="product-title">{item.title}</div>
+                    <div className="product-price">{item.price}</div>
+                    <a className="link-etsy" href={item.etsy} target="_blank" rel="noopener noreferrer">View on Etsy</a>
+                    </div>))}
                 </div>
             </div>
         </div>
