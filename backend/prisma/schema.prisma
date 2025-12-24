@@ -32,7 +32,7 @@ model product_images {
 model products {
   id                                          Int              @id @default(autoincrement())
   title                                       String
-  description                                 String
+  description                                 Json
   price                                       Int
   currency                                    String?          @default("GBP") @db.Char(3)
   active                                      Boolean?         @default(true)

@@ -1,6 +1,24 @@
 //crud functions for products
 import prisma from "../utilities/prisma.js";
 
+const DEFAULT_DESCRIPTION = {
+  title: "Personalised Party Bags and Boxes",
+  paragraph:
+    "These beautifully personalised party boxes are the perfect finishing touch for children’s parties, birthdays, playdates, classroom celebrations, or any fun little event. They add a thoughtful, memorable detail that guests will love.",
+  sections: [
+    {
+      heading: "Measurements (H × L × W)",
+      body: "17.5 cm × 13.5 cm × 10.9 cm (6.8 in × 5.3 in × 4 in)",
+    },
+    {
+      heading: "Assembly",
+      body: "Each box comes professionally printed, pre-folded, and ready to pop open. Just press the base together and fill it with special treats. There’s no need for glue or tape. Simply fill with your chosen goodies and secure the top tabs for a neat finish.",
+    },
+    { heading: "How to Order", body: "Visit our Etsy Store to place your order." },
+    { body: "If you have any questions or need assistance, don’t hesitate to contact us." },
+  ],
+};
+
 // create product if you are admin or superadmin
 export async function createProduct(currentAdmin, productData) {
   if (!currentAdmin || (currentAdmin.role !== "admin" && currentAdmin.role !== "superadmin")) {
@@ -11,10 +29,7 @@ export async function createProduct(currentAdmin, productData) {
     throw new Error("title, price and currency are required");
   }
 
-  let description = "";
-  if (productData.description) {
-    description = productData.description;
-  }
+  const description = DEFAULT_DESCRIPTION
 
   let short_description = null;
   if (productData.short_description) {

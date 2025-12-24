@@ -32,7 +32,7 @@ export async function getAllProducts() {
     cleanedProducts.push({
       id: product.id,
       title: product.title,
-      description: product.short_description ?? product.description,
+      description: product.short_description,
       price: product.price,
       currency: product.currency,
       main_image: mainImage

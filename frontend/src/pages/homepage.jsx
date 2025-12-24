@@ -43,6 +43,7 @@ function Homepage() {
                     <a className="link-etsy" href={item.etsy} target="_blank" rel="noopener noreferrer">View on Etsy</a>
                     </div>))}
                 </div>
+                <Link to="/shop" className="shop-all">Shop all products</Link>
             </div>
         </div>
         {/*review section*/}
