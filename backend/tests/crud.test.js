@@ -29,6 +29,7 @@ test("returns only active products with main image", async () => {
     data: {
       title: "Princess Box",
       description: "Pink box",
+      short_description: "Pink box",
       price: 10,
       currency: "GBP",
       active: true,
@@ -366,6 +367,28 @@ beforeEach(async () => {
   superadmin = null; // will be set inside each product test
 });
 
+//data for richObject for the below test
+const sampleData = {
+  title: "Personalised Party Bags and Boxes",
+  paragraph: "These beautifully personalised party boxes are the perfect finishing touch for children’s parties, birthdays, playdates, classroom celebrations, or any fun little event. They add a thoughtful, memorable detail that guests will love.",
+  sections: [
+    {
+      heading: "Measurements (H × L × W)",
+      body: "17.5 cm × 13.5 cm × 10.9 cm (6.8 in × 5.3 in × 4 in)",
+    },
+    {
+      heading: "Assembly",
+      body: "Each box comes professionally printed, pre-folded, and ready to pop open. Just press the base together and fill it with special treats. There’s no need for glue or tape. Simply fill with your chosen goodies and secure the top tabs for a neat finish.",
+    },
+    { 
+      heading: "How to Order",
+      body: "Visit our Etsy Store to place your order." 
+    },
+    {
+    body: "If you have any questions or need assistance, don’t hesitate to contact us.",
+    },
+  ],
+};
 
 //createProduct creates a product
 test("creates a product", async () => {
@@ -385,8 +408,8 @@ test("creates a product", async () => {
 
   const productData = {
     title: "Princess Box",
-    description: "Pink box",
-    short_description: null,
+    description: sampleData,
+    short_description: "Pink Box",
     price: 10,
     currency: "GBP",
     active: true,
@@ -398,7 +421,7 @@ test("creates a product", async () => {
   expect(newProduct).toEqual({
     id: expect.any(Number),
     title: "Princess Box",
-    description: "Pink box",
+    description: expect.any(Object),
     price: 10,
     currency: "GBP",
     active: true,
@@ -407,7 +430,7 @@ test("creates a product", async () => {
     updated_by_admin_id: superadmin.id,
     created_at: expect.any(Date),
     updated_at: expect.any(Date),
-    short_description: null
+    short_description: "Pink Box"
   });
 });
 
