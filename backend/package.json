@@ -21,6 +21,8 @@
     "supertest": "^7.1.4"
   },
   "scripts": {
+    "dev": "node main.js",
+    "start": "node main.js",
     "test": "dotenv -e .env.test cross-env NODE_OPTIONS=--experimental-vm-modules jest --runInBand"
   },
   "prisma": {

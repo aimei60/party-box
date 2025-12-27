@@ -87,8 +87,46 @@ import prisma from "../application/utilities/prisma.js"
         ]
     });
 }
-*/
 
+
+async function main() {
+    const baby = await prisma.products.findFirst({
+        where: {
+            title: "Baby Shark Party Box"
+        }
+    })
+    
+    if (!baby) {
+        throw new Error("One or more products not found. Check your titles match exactly.")
+    }
+    
+    await prisma.product_images.createMany({
+        data: [
+            { 
+                product_id: baby.id, 
+                url: "/images/baby-shark/bs1.png", 
+                alt_text: "Baby Shark Party Box - front", 
+                sort_order: 1, 
+                is_primary: true 
+            },
+            { 
+                product_id: baby.id, 
+                url: "/images/baby-shark/bs2.png", 
+                alt_text: "Baby Shark Party Box - side",  
+                sort_order: 2, 
+                is_primary: false 
+            },
+            { 
+                product_id: baby.id, 
+                url: "/images/baby-shark/bs3.png", 
+                alt_text: "Baby Shark Party Box - front with hand",
+                sort_order: 3, 
+                is_primary: false 
+            },
+        ]
+    })
+}
+    */
 
 
 main()

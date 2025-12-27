@@ -1,10 +1,10 @@
 import express from 'express'
 import cors from "cors"
 import dotenv from 'dotenv'
-import productsRouter from './routers/public.products.routes.js'
-import publicProductsRouter from './routers/public.products.routes.js'
-import authProductsRouter from './routers/auth.products.routes.js'
-import authImages from './routers/auth.product.images.routes.js'
+import productsRouter from './application/routers/public.products.routes.js'
+import publicProductsRouter from './application/routers/public.products.routes.js'
+import authProductsRouter from './application/routers/auth.products.routes.js'
+import authImages from './application/routers/auth.product.images.routes.js'
 
 const app = express()
 dotenv.config()
@@ -23,10 +23,10 @@ app.use(
 
 app.use(express.json())
 
-app.use(productsRouter)
-app.use(authProductsRouter)
-app.use(publicProductsRouter)
-app.use(authImages)
+app.use("/api", productsRouter)
+app.use("/api", authProductsRouter)
+app.use("/api", publicProductsRouter)
+app.use("/api", authImages)
 
 const PORT = process.env.PORT
 
