@@ -126,8 +126,88 @@ async function main() {
         ]
     })
 }
-    */
+    
 
+async function main() {
+    const peppa = await prisma.products.findFirst({
+        where: {
+            title: "Peppa Pig Party Box"
+        }
+
+        })
+
+    if (!peppa) {
+        throw new Error("One or more products not found. Check your titles match exactly.")
+    }
+
+    await prisma.product_images.createMany({
+        data: [
+            { 
+                product_id: peppa.id, 
+                url: "/images/peppa-pig/p1.png", 
+                alt_text: "Peppa Pig Party Box - front", 
+                sort_order: 1, 
+                is_primary: true 
+            },
+            { 
+                product_id: peppa.id, 
+                url: "/images/peppa-pig/p3.png", 
+                alt_text: "Peppa Pig Party Box - side", 
+                sort_order: 2, 
+                is_primary: false
+            },
+            { 
+                product_id: peppa.id, 
+                url: "/images/peppa-pig/p2.png", 
+                alt_text: "Peppa Pig Party Box - another front angle", 
+                sort_order: 3, 
+                is_primary: false
+            },
+        ]
+    })
+    
+
+}
+
+*/
+
+async function main() {
+    const bluey = await prisma.products.findFirst({
+        where: {
+            title: "Bluey Party Box"
+        }
+    })
+
+    if (!bluey) {
+        throw new Error("One or more products not found. Check your titles match exactly.")
+    }
+
+    await prisma.product_images.createMany({
+        data: [
+            { 
+                product_id: bluey.id, 
+                url: "/images/bluey/bluey1.png", 
+                alt_text: "Bluey Party Box - front with hand", 
+                sort_order: 1, 
+                is_primary: true 
+            },
+            { 
+                product_id: bluey.id, 
+                url: "/images/bluey/bluey3.png", 
+                alt_text: "Bluey Party Box - side", 
+                sort_order: 2, 
+                is_primary: false
+            },
+            { 
+                product_id: bluey.id, 
+                url: "//images/bluey/bluey2.png", 
+                alt_text: "Blury Party Box - another front angle", 
+                sort_order: 3, 
+                is_primary: false
+            },
+        ]
+    })
+}
 
 main()
 .catch((e) => {
