@@ -169,7 +169,7 @@ async function main() {
 
 }
 
-*/
+
 
 async function main() {
     const bluey = await prisma.products.findFirst({
@@ -216,4 +216,4 @@ main()
 .finally(async () => {
     await prisma.$disconnect()
 })
-    
+    */

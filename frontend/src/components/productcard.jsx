@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "../css/productcard.css"
 
 //product card function to return the party box image and its title, price and view more details
@@ -22,10 +23,9 @@ function ProductCard({product}) {
         <div className="product-card-body">
             <h3 className="product-card-title">{product.title}</h3>
             <p className="product-description">{shortDescription}</p>
-            
             <div className="product-card-footer">
                 <span className="product-card-price">£{priceInGBP}</span>
-                <button className="product-button">View</button>
+                <Link to={`/product/${product.id}`}><button className="product-button">View</button></Link>
             </div>
         </div>
     </div>
