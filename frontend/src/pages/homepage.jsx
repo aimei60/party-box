@@ -40,7 +40,7 @@ function Homepage() {
                     <div className="product-picture"><img src={item.image} alt={item.alt} /></div>
                     <div className="product-title">{item.title}</div>
                     <div className="product-price">{item.price}</div>
-                    <a className="link-etsy" href={item.etsy} target="_blank" rel="noopener noreferrer">View on Etsy</a>
+                    <Link to="/shop" className="view">View</Link>
                     </div>))}
                 </div>
                 <Link to="/shop" className="shop-all">Shop all products</Link>

@@ -72,10 +72,19 @@ body {
   color: #333;
 }
 
-.link-etsy {
-  font-size: 1.1rem;
-  color: #ff7c03;
-  font-weight: 500;
+.view {
+  padding: 0.45rem 0.65rem;
+  border-radius: 6px;
+  border: none;
+  background-color: #0aa0c1;
+  color: #ffffff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+  margin-top: 0.4rem;
+  text-decoration: none;
 }
 
 .shop-all {

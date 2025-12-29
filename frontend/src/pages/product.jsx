@@ -50,10 +50,10 @@ function ProductPage() {
 
             {/* right side for wording */}
             <div className="product-info">
-            <h1>{product.title}</h1>
-            <p className="price">£{(product.price / 100).toFixed(2)} {product.currency}</p>
-            {description.title && <h2>{description.title}</h2>}
-            {description.paragraph && <p>{description.paragraph}</p>}
+            <h1 className="description-title">{product.title}</h1>
+            <p className="description-price">£{(product.price / 100).toFixed(2)} {product.currency}</p>
+            {description.title && <h2 className="description-title2">{description.title}</h2>}
+            {description.paragraph && <p className="description-paragraph">{description.paragraph}</p>}
             {sections.map((section, index) => (
                 <div key={index} className="description-section">
                 {section.heading && <h3>{section.heading}</h3>}

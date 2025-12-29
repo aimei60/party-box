@@ -60,6 +60,16 @@
   color: #666;
 }
 
+.product-price {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-top: 0;
+  margin-right: 0;
+  margin-bottom: 0.65rem;
+  margin-left: -0.5rem;
+  color: #666;
+}
+
 .product-button {
   padding: 0.45rem 0.45rem;
   border-radius: 6px;
