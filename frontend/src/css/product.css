@@ -54,6 +54,7 @@ body {
 
 .description-title2 {
     color: #0aa0c1;
+    text-decoration: underline;
 }
 
 .description-paragraph {
@@ -69,6 +70,23 @@ body {
 .description-section h3 {
     margin: 0 0 0.25rem 0;
 }
+
+.heading1 {
+    text-decoration: underline;
+}
+
+.shop-link {
+    text-decoration: none;
+    cursor: pointer;
+    color:  #5c5858;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.shop-link:hover {
+  color: #d4af37;
+}
+
 
 .product-info button {
     margin-top: 1.5rem;

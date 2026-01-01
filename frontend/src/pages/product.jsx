@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Footer from "../components/footer";
@@ -56,11 +57,12 @@ function ProductPage() {
             {description.paragraph && <p className="description-paragraph">{description.paragraph}</p>}
             {sections.map((section, index) => (
                 <div key={index} className="description-section">
-                {section.heading && <h3>{section.heading}</h3>}
+                {section.heading && <h3 className="heading1">{section.heading}</h3>}
                 {section.body && <p>{section.body}</p>}
                 </div>))}
             {product.etsy_url && (<a href={product.etsy_url} target="_blank" rel="noreferrer"><button>Buy on Etsy</button></a>)}
             </div>
+            <Link to="/shop" className="shop-link">Back to Shop</Link>
         </div>
         </div>
         <Footer />
