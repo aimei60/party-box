@@ -1,12 +1,12 @@
 //router functions for admin products
 import express from 'express';
-import { createProduct, updateProduct, deleteProduct, getAdminProducts } from '../crud/auth.products.js';
-import { generateToken, authRequired} from '../auth.js';
+import {createProduct, updateProduct, deleteProduct, getAdminProducts} from '../crud/auth.products.js';
+import {authRequired} from '../auth.js';
 
 const router = express.Router()
 
 //router function to create product by admin/superadmin
-router.post('/products', authRequired, async (req, res) => {
+router.post('/', authRequired, async (req, res) => {
   try {
     const currentAdmin = req.user 
     const productData = req.body
@@ -19,7 +19,7 @@ router.post('/products', authRequired, async (req, res) => {
 })
 
 //router function to update product
-router.put('/products/:id', authRequired, async (req, res) => {
+router.put('/:id', authRequired, async (req, res) => {
   try {
     const currentAdmin = req.user 
     const productData = req.body
@@ -38,7 +38,7 @@ router.put('/products/:id', authRequired, async (req, res) => {
 })
 
 //router function to delete product
-router.delete('/products/:id', authRequired, async (req, res) => {
+router.delete('/:id', authRequired, async (req, res) => {
   try {
     const currentAdmin = req.user 
     const { id } = req.params
@@ -56,7 +56,7 @@ router.delete('/products/:id', authRequired, async (req, res) => {
 })
 
 //router function to return all products
-router.get('/admin/products', authRequired, async (req, res) => {
+router.get('/', authRequired, async (req, res) => {
   try {
     const currentAdmin = req.user 
 

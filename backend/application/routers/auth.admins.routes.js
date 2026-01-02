@@ -2,13 +2,13 @@
 import express from 'express';
 import prisma from "../utilities/prisma.js";
 import bcrypt from "bcryptjs";
-import { generateToken, authRequired} from '../auth.js';
-import { toPublicAdmin, createAdmin, listAdmins, getAdminById, updateAdmin, deleteAdmin  } from '../crud/auth.admins.js';
+import {generateToken, authRequired} from '../auth.js';
+import {createAdmin, listAdmins, getAdminById, updateAdmin, deleteAdmin  } from '../crud/auth.admins.js';
 
 const router = express.Router()
 
 //auth/login - successful log in and get jwt token
-router.post('/auth/login', async (req, res) => {
+router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body
 
@@ -60,12 +60,12 @@ router.post('/auth/login', async (req, res) => {
 })
 
 //who am I check
-router.get('/auth/me', authRequired, (req, res) => {
+router.get('/me', authRequired, (req, res) => {
   res.json({ admin: req.user })
 })
 
 //logout route for user
-router.post('/auth/logout', (req, res) => {
+router.post('/logout', (req, res) => {
   res.clearCookie("adminToken", {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
@@ -76,7 +76,7 @@ router.post('/auth/logout', (req, res) => {
 })
 
 //logged in admin create admin user
-router.post('/admins', authRequired, async (req, res) => {
+router.post('/', authRequired, async (req, res) => {
   try {
     const currentAdmin = req.user //stores details of current admin or superadmin
     const { email, password, role } = req.body //details of new admin
@@ -89,7 +89,7 @@ router.post('/admins', authRequired, async (req, res) => {
 })
 
 //router function to list admins
-router.get('/admins', authRequired, async (req, res) => {
+router.get('/', authRequired, async (req, res) => {
   try {
     const currentAdmin = req.user
     const adminList = await listAdmins(currentAdmin)
@@ -101,7 +101,7 @@ router.get('/admins', authRequired, async (req, res) => {
 })
 
 //router to get admin by id
-router.get('/admins/:id', authRequired, async (req, res) => {
+router.get('/:id', authRequired, async (req, res) => {
   try {
     const currentAdmin = req.user
     const { id } = req.params     
@@ -123,7 +123,7 @@ router.get('/admins/:id', authRequired, async (req, res) => {
 })
 
 //router function to update admin
-router.put('/admins/:id', authRequired, async (req, res) => {
+router.put('/:id', authRequired, async (req, res) => {
   try {
     const currentAdmin = req.user
     const { id } = req.params    
@@ -142,7 +142,7 @@ router.put('/admins/:id', authRequired, async (req, res) => {
 })
 
 // router function to delete admin
-router.delete('/admins/:id', authRequired, async (req, res) => {
+router.delete('/:id', authRequired, async (req, res) => {
   try {
     const currentAdmin = req.user
     const { id } = req.params    

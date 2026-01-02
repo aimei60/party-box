@@ -1,12 +1,12 @@
 //router functions for product images
 import express from 'express';
-import { addProductImage, updateProductImage, deleteProductImage } from '../crud/auth.product.images.js';
-import { generateToken, authRequired} from '../auth.js';
+import {addProductImage, updateProductImage, deleteProductImage} from '../crud/auth.product.images.js';
+import {authRequired} from '../auth.js';
 
 const router = express.Router()
 
 //router function to add product image by admin/superadmin
-router.post('/products/:productId/images', authRequired, async (req, res) => {
+router.post('/:productId/images', authRequired, async (req, res) => {
   try {
     const currentAdmin = req.user 
     const { productId } = req.params
@@ -25,7 +25,7 @@ router.post('/products/:productId/images', authRequired, async (req, res) => {
 })
 
 //router function to update product image
-router.put('/products/:productId/images/:imageId', authRequired, async (req, res) => {
+router.put('/:productId/images/:imageId', authRequired, async (req, res) => {
   try {
     const currentAdmin = req.user 
     const { productId, imageId } = req.params
@@ -44,7 +44,7 @@ router.put('/products/:productId/images/:imageId', authRequired, async (req, res
 })
 
 //router function to delete product image
-router.delete('/products/:productId/images/:imageId', authRequired, async (req, res) => {
+router.delete('/:productId/images/:imageId', authRequired, async (req, res) => {
   try {
     const currentAdmin = req.user 
     const { productId, imageId } = req.params
