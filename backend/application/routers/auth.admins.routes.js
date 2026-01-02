@@ -43,15 +43,36 @@ router.post('/auth/login', async (req, res) => {
     //create JWT token
     const token = generateToken(publicAdmin)
 
+    // set HTTP-only cookie
+    res.cookie("adminToken", token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production", // https in prod and http in dev
+    sameSite: "strict",
+    maxAge: 60 * 60 * 1000, // 1 hour
+  });
+
     //return both the admin info (no password) and token
-    res.json({
-      admin: publicAdmin,
-      token,
-    })
+    res.json({admin: publicAdmin,})
   } catch (error) {
     console.error(error)
     res.status(500).json({ error: 'Failed to log in' })
   }
+})
+
+//who am I check
+router.get('/auth/me', authRequired, (req, res) => {
+  res.json({ admin: req.user })
+})
+
+//logout route for user
+router.post('/auth/logout', (req, res) => {
+  res.clearCookie("adminToken", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+  })
+
+  res.json({ message: "Logged out" })
 })
 
 //logged in admin create admin user

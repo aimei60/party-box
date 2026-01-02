@@ -19,16 +19,13 @@ export function generateToken(admin) {
 
 //checks for the correct authorisation
 export function authRequired(req, res, next) {
-   //gets authorisation header from request
-  const authHeader = req.headers.authorization
+   //gets token from cookies
+  const token = req.cookies.adminToken;
 
-  //expects authorisation: Bearer <token> if not raises error
-  if (!authHeader || !authHeader.startsWith('Bearer ')) {
-    return res.status(401).json({ error: 'Missing or invalid Authorization header' })
+  //needs cookie to authenticate
+  if (!token) {
+    return res.status(401).json({ error:"Authentication required"})
   }
-
-  //splits header and gets the JWT string
-  const token = authHeader.split(' ')[1]
 
   try {
     //verify token via secret key

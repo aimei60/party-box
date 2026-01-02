@@ -1,4 +1,5 @@
 import prisma from "../application/utilities/prisma.js"
+import bcrypt from "bcrypt";
 
 /*async function main() {
     await prisma.products.createMany({
@@ -216,4 +217,27 @@ main()
 .finally(async () => {
     await prisma.$disconnect()
 })
-    */
+    
+
+async function main() {
+    const email = process.env.SEED_ADMIN_EMAIL;
+    const password = process.env.SEED_ADMIN_PASSWORD;
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+  await prisma.admins.upsert({
+    where: { email },
+    update: {},
+    create: {
+      email,
+      password: hashedPassword,
+      role: "superadmin",
+    },
+  });
+}
+
+main()
+  .catch(console.error)
+  .finally(() => prisma.$disconnect());
+
+*/

@@ -1,6 +1,7 @@
 import express from 'express'
 import cors from "cors"
 import dotenv from 'dotenv'
+import cookieParser from "cookie-parser"
 import productsRouter from './application/routers/public.products.routes.js'
 import publicProductsRouter from './application/routers/public.products.routes.js'
 import authProductsRouter from './application/routers/auth.products.routes.js'
@@ -17,11 +18,12 @@ const allowedOrigins = [
 app.use(
   cors({
     origin: allowedOrigins,
-    credentials: false, // change to true when using cookies/session
+    credentials: true, //  using cookies/session, false if its authentication bearer
   })
 );
 
 app.use(express.json())
+app.use(cookieParser());
 
 app.use("/api", productsRouter)
 app.use("/api", authProductsRouter)
