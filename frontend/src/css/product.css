@@ -71,6 +71,27 @@ body {
     margin: 0 0 0.25rem 0;
 }
 
+.etsy-button {
+    display: flex;
+    text-decoration: none;
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+    padding-left: 0.7rem;
+    padding-bottom: 0.5rem;
+    background-color: #DE7A1B;
+    color: #ffffff;
+    width: 5.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: transform 0.2s ease;
+}
+
+.etsy-button:hover {
+  background-color: #067188;
+  transform: translateY(-3.5px);
+}
+
 .shop-link {
     display: flex;
     align-items: center;

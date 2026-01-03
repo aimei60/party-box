@@ -240,4 +240,21 @@ main()
   .catch(console.error)
   .finally(() => prisma.$disconnect());
 
-*/
+async function main() {
+    await prisma.products.updateMany({
+        where: {
+            id: {
+                in: [1, 2, 3],
+            },
+        },
+        data: {
+            etsy_url: "https://www.etsy.com/shop/ZogyStudios?ref=shop_profile&listing_id=1584457460",
+        },
+    })
+
+}
+
+main()
+  .catch(console.error)
+  .finally(() => prisma.$disconnect());
+  */

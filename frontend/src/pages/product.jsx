@@ -60,8 +60,8 @@ function ProductPage() {
                 <div key={index} className="description-section">
                 {section.heading && <h3 className="heading1">{section.heading}</h3>}
                 {section.body && <p>{section.body}</p>}
+                {section.heading === "How to Order" && product.etsy_url && (<a href={product.etsy_url} target="_blank" rel="noreferrer" className="etsy-button">Buy Here</a>)}
                 </div>))}
-            {product.etsy_url && (<a href={product.etsy_url} target="_blank" rel="noreferrer"><button>Buy on Etsy</button></a>)}
             </div>
             <Link to="/shop" className="shop-link"><IoArrowBackCircleSharp className="arrow" />Back to Shop</Link>
         </div>
