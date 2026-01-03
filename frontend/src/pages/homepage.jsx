@@ -36,19 +36,18 @@ function Homepage() {
                 <div className="bestseller-title">Shop Best Sellers</div>
                 <div className="bestseller-favourite">Customer's favourite party boxes</div>
                 <div className="boxes-grid">{bestSellers.map((item) => (
-                    <div className="boxes-section" key={item.title}>
+                    <Link to="/shop" className="boxes-section" key={item.title}>
                     <div className="product-picture"><img src={item.image} alt={item.alt} /></div>
                     <div className="product-title">{item.title}</div>
                     <div className="product-price">{item.price}</div>
-                    <Link to="/shop" className="view">View</Link>
-                    </div>))}
+                    </Link>))}
                 </div>
                 <Link to="/shop" className="shop-all">Shop all products</Link>
             </div>
         </div>
         {/*review section*/}
         <div className="review-section">
-            <div className="review-title">What Our Customers Say</div>
+            <div className="review-title">Verified Customer Reviews</div>
             <div className="review-grid-container">
                 <div className="reviews-grid">
                     <div className="review-stars">★★★★★</div>
@@ -67,8 +66,8 @@ function Homepage() {
                 </div>
             </div>
             <div className="bottom-section">
-                <Link to="/shop" className="shop">Shop</Link>
                 <a className="more-reviews" href="https://www.etsy.com/shop/ZogyStudios?ref=shop_profile&listing_id=1584457460#reviews" target="_blank" rel="noopener noreferrer">More reviews on Etsy</a>
+                <Link to="/shop" className="shop">Shop</Link>
             </div>
         </div>
         <Footer/>

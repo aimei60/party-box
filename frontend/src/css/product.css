@@ -1,8 +1,8 @@
 body {
-    background-color: rgb(188, 243, 243);
+    background-color: #ffffff;
 }
 .product-page {
-    background-color: rgb(188, 243, 243);
+    background-color: #ffffff;
     max-width: 68rem;
     margin: 0 auto;
     padding: 1.5rem 1rem;
@@ -20,11 +20,12 @@ body {
     gap: 1rem;
 }
 
-.product-image {
+.product-page-image {
     width: 100%;
     height: auto;
     display: block;
     object-fit: cover;
+    border-radius: 1rem
 }
 
 .product-info{
@@ -39,8 +40,7 @@ body {
 }
 
 .description-title {
-    color: #c7ae0d;
-    text-decoration: underline;
+    color: #067188;
     margin-top: 1rem;
 }
 
@@ -49,44 +49,47 @@ body {
     margin-bottom: 1rem;
     font-size: 1.1rem;
     font-weight: 600;
-    color: #666;
+    color: #0c6dbd
 }
 
 .description-title2 {
-    color: #0aa0c1;
-    text-decoration: underline;
+    color: #AE9309;
+    text-decoration: none;
 }
 
 .description-paragraph {
-    color: #666;
+    color: #0c6dbd;
     font-weight: 550;
 }
 
 .description-section {
     margin-top: 1.25rem;
-    color: #666;
+    color: #0c6dbd;
 }
 
 .description-section h3 {
     margin: 0 0 0.25rem 0;
 }
 
-.heading1 {
-    text-decoration: underline;
-}
-
 .shop-link {
+    display: flex;
+    align-items: center;
     text-decoration: none;
     cursor: pointer;
-    color:  #5c5858;
+    color:  #067188;
     font-weight: bold;
     font-size: 1.1rem;
 }
 
 .shop-link:hover {
-  color: #d4af37;
+  color: #AE9309;
 }
 
+.arrow {
+    width: 1.3rem;
+    height: 1.3rem;
+    margin-right: 0.15rem;
+}
 
 .product-info button {
     margin-top: 1.5rem;

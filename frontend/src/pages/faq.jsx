@@ -1,4 +1,3 @@
-import Navbar from "../components/Navbar";
 import Footer from "../components/footer";
 import '../css/faq.css'
 
@@ -9,7 +8,8 @@ function Faq() {
             <div className="faq-inner">
                 <div className="faq-title">FAQ</div>
                 <div className="faq-description">
-                    <div className="question-box">General</div>
+                    <input className="faq-toggle" type="checkbox" id="faq-general" />
+                    <label className="question-box" htmlFor="faq-general">General Questions</label>
                     <div className="questions">
                         <strong>What is a party box?</strong><br />
                         Our party boxes are professionally printed and already pre-folded. Just pop them open, push the base together, and they’re ready to go! They take seconds to assemble and are perfect for filling with treats or small gifts to match your party theme.
@@ -21,9 +21,10 @@ function Faq() {
                         They’re great for children’s parties, birthdays, playdates, classroom celebrations, or any fun little event!
                         <br /><br />
                         <strong>What size are the boxes?</strong><br />
-                        Each box is approximately 17.5 cm (6.8 inches) tall, 13.5 cm (5.3 inches) long, and 10.9 cm (4 inches) wide. Perfect for small toys, sweets, and party favours.
+                        Each box measures approx. 17.5 × 13.5 × 10.9 cm. Perfect for treats and small toys.
                     </div>
-                    <div className="question-box">Orders & Delivery</div>
+                    <input className="faq-toggle" type="checkbox" id="faq-orders" />
+                    <label className="question-box" htmlFor="faq-orders">Orders & Delivery Questions</label>
                     <div className="questions">
                         <strong>How long will delivery take?</strong><br />
                         All orders are processed through Etsy. Delivery estimates and shipping options are shown on each product listing.
@@ -34,7 +35,8 @@ function Faq() {
                         <strong>How are the boxes packaged for delivery?</strong><br />
                         Boxes are shipped flat in protective packaging to keep them safe, clean, and crease-free during delivery.
                     </div>
-                    <div className="question-box">Products & Quality</div>
+                    <input className="faq-toggle" type="checkbox" id="faq-products" />
+                    <label className="question-box" htmlFor="faq-products">Products & Quality Questions</label>
                     <div className="questions">
                         <strong>What’s included in a party box?</strong><br />
                         Each box comes professionally printed, pre-folded, and ready to pop open. Just press the base together and fill it with treats! Every box features the theme you selected and arrives flat-packed for easy shipping.
@@ -45,7 +47,8 @@ function Faq() {
                         <strong>Are your products eco-friendly?</strong><br />
                         Yes! Our boxes are recyclable and printed on high-quality 260gsm photo paper.
                     </div>
-                    <div className="question-box">Customization & Design</div>
+                    <input className="faq-toggle" type="checkbox" id="faq-custom" />
+                    <label className="question-box" htmlFor="faq-custom">Customisation & Design Questions</label>
                     <div className="questions">
                         <strong>Can I personalise a box with my child’s name or a message?</strong><br />
                         Absolutely! We offer personalisation on many designs. Just send us a message on Etsy or through our contact page, and we’ll let you know what we can do. We can create custom messages for any occasion.
@@ -56,7 +59,8 @@ function Faq() {
                         <strong>Do you create new themes?</strong><br />
                         Yes! We’re always working on new ideas and adding fresh designs. Keep an eye on our Etsy shop for the latest releases.
                     </div>
-                    <div className="question-box">Contact & Support</div>
+                    <input className="faq-toggle" type="checkbox" id="faq-contact" />
+                    <label className="question-box" htmlFor="faq-contact">Contact & Support Questions</label>
                     <div className="questions">
                         <strong>I have another question!</strong><br />
                         No problem at all. Feel free to reach out through our contact form or message us directly on Etsy.

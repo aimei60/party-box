@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Footer from "../components/footer";
+import { IoArrowBackCircleSharp } from "react-icons/io5";
 import "../css/product.css";
 
 function ProductPage() {
@@ -46,7 +47,7 @@ function ProductPage() {
         <div className="product-layout">
             {/* left side for pics */}
             <div className="product-images-grid">
-            {product.images && product.images.length > 0 && product.images.map((img) => (<img key={img.id} className="product-image" src={img.url} alt={product.title}/>))}
+            {product.images && product.images.length > 0 && product.images.map((img) => (<img key={img.id} className="product-page-image" src={img.url} alt={product.title}/>))}
             </div>
 
             {/* right side for wording */}
@@ -62,7 +63,7 @@ function ProductPage() {
                 </div>))}
             {product.etsy_url && (<a href={product.etsy_url} target="_blank" rel="noreferrer"><button>Buy on Etsy</button></a>)}
             </div>
-            <Link to="/shop" className="shop-link">Back to Shop</Link>
+            <Link to="/shop" className="shop-link"><IoArrowBackCircleSharp className="arrow" />Back to Shop</Link>
         </div>
         </div>
         <Footer />

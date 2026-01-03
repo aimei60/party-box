@@ -1,4 +1,3 @@
-import Navbar from "../components/Navbar";
 import Footer from "../components/footer";
 import { IoHeart } from "react-icons/io5";
 import '../css/about.css'

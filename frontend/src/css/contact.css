@@ -1,5 +1,5 @@
 .contact-container {
-  background-color: rgb(188, 243, 243);
+  background-color: #ffffff;
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -15,7 +15,7 @@
 }
 
 .contact-box {
-  background-color: #ffffff;
+  background-color: #b7eaf9;
   border-radius: 0.75rem;
   box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.1);
   padding: 5rem;
@@ -23,21 +23,23 @@
 }
 
 .contact-title {
-  font-size: 1.8rem;
+  font-size: 2rem;
   font-weight: 700;
-  color: #656363;
+  color: #066D84;
   margin-bottom: 2rem;
   text-decoration: underline;
+  justify-self: center;
 }
 
 .contact-subtitle {
-  color: #656363;
+  color: #0c6dbd;
   font-size: 1.3rem;
   margin-bottom: 2rem;
+  font-weight: bold;
 }
 
 .extra-info {
-  color: #656363;
+  color: #2b2b2b;
   margin-bottom: 2rem;
   font-weight: 200rem;
   font-size: 1.08rem;
@@ -49,6 +51,10 @@
   gap: 1.25rem;
   text-align: left;
   width: 100%;
+}
+
+.contact-form label {
+  color: #0c6dbd !important;
 }
 
 .form-group label {
@@ -84,8 +90,8 @@
 }
 
 .submit-btn {
-  background-color: rgb(188, 243, 243);
-  color: #656363;
+  background-color: #077992;
+  color: #ffffff;
   border: none;
   border-radius: 0.5rem;
   font-weight: 600;
@@ -98,7 +104,7 @@
 }
 
 .submit-btn:hover {
-  background-color: #0aa0c1;
+  background-color: #756206;
   transform: translateY(-2px);
   color: #ffffff;
 }

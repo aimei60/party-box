@@ -10,7 +10,7 @@ body {
   display: flex;
   justify-content: center;
   padding: 4rem 0;
-  background-color: rgb(188, 243, 243);
+  background-color: #ffffff;
 }
 
 .bestseller-inner {
@@ -22,14 +22,16 @@ body {
 .bestseller-title {
   font-size: 2.2rem;
   font-weight: 700;
-  margin-bottom: 0.4rem;
-  color:  #514e4e;
+  margin-bottom: 0.6rem;
+  color:  #067188;
+  text-decoration: underline;
 }
 
 .bestseller-favourite {
-  font-size: 1.2rem;
-  color: #777;
+  font-size: 1.25rem;
+  color: #0c6dbd;
   margin-bottom: 2rem;
+  font-weight: 590;
 }
 
 .boxes-grid {
@@ -40,11 +42,12 @@ body {
 }
 
 .boxes-section {
-  background: rgb(235, 251, 252);
+  background: #b7eaf9;
   padding: 1.5rem;
   border-radius: 12px;
   box-shadow: 0px 4px 10px rgba(0,0,0,0.08);
   transition: transform 0.2s ease;
+  text-decoration: none;
 }
 
 .boxes-section:hover {
@@ -62,38 +65,23 @@ body {
   font-size: 1.3rem;
   font-weight: 600;
   margin-bottom: 0.3rem;
-  color: #514e4e;
+  color: #066D84;
 }
 
 .product-price {
   font-size: 1.2rem;
   font-weight: 500;
   margin-bottom: 0.6rem;
-  color: #333;
-}
-
-.view {
-  padding: 0.45rem 0.65rem;
-  border-radius: 6px;
-  border: none;
-  background-color: #0aa0c1;
-  color: #ffffff;
-  font-size: 0.9rem;
-  font-weight: 600;
-  cursor: pointer;
-  margin-right: 0.5rem;
-  margin-bottom: 0.5rem;
-  margin-top: 0.4rem;
-  text-decoration: none;
+  color: #0B67B1 !important;
 }
 
 .shop-all {
   display: inline-block;
   padding: 1rem;
-  background-color: #0aa0c1;
+  background-color: #077992;
   text-decoration: none;
   cursor: pointer;
-  color:  #f6f2f2;
+  color:  #ffffff;
   font-weight: bold;
   font-size: 1.1rem;
   border-radius: 0.5rem;
@@ -119,7 +107,7 @@ body {
 /*Reviews section */
 .review-section {
   padding: 4rem 1rem;
-  background: rgb(235, 251, 252);
+  background: #CCEFFA;
   text-align: center;
   font-family: "Georgia", serif;
 }
@@ -128,7 +116,8 @@ body {
   font-size: 1.9rem;
   font-weight: 600;
   margin-bottom: 0.9rem;
-  color: #514e4e;
+  color: #067188;
+  text-decoration: underline;
 }
 
 .reviews-grid {
@@ -141,7 +130,8 @@ body {
 
 .review-stars {
   font-size: 1.7rem;
-  color: #d4af37;
+  /*color: #d4af37;*/
+  color: #977C20;
   margin-bottom: 0.5rem;
 }
 
@@ -185,28 +175,38 @@ body {
 }
 
 .shop {
-  font-size: 1.3rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: color 0.2s ease;
+  display: inline-block;
+  padding: 0.7rem;
+  background-color: #077992;
   text-decoration: none;
-  color: #111;
+  cursor: pointer;
+  color:  #ffffff;
+  font-weight: bold;
+  font-size: 1.1rem;
+  border-radius: 0.5rem;
+  transition: transform 0.2s ease;
 }
 
 .shop:hover {
-  color: #d4af37;
+  transform: translateY(-5px);
 }
 
 .more-reviews {
-  font-size: 1.1rem;
-  color: #444;
+  display: inline-block;
+  padding: 0.7rem;
+  background-color: #077992;
+  text-decoration: none;
   cursor: pointer;
-  transition: color 0.2s ease;
-  text-decoration: underline;
+  color:  #ffffff;
+  font-weight: bold;
+  font-size: 1.1rem;
+  border-radius: 0.5rem;
+  transition: transform 0.2s ease;
 }
 
 .more-reviews:hover {
-  color: #ff7c03;
+  transform: translateY(-5px);
+  background-color: #BA5B03;
 }
 
 /*for smaller screens */

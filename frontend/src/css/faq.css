@@ -1,5 +1,5 @@
 .faq {
-    background-color: rgb(188, 243, 243);
+    background-color: #ffffff;
     padding: 4rem 1.5rem;
     display: flex;
     justify-content: center;
@@ -11,7 +11,7 @@
 }
 
 .faq-title {
-    color:  #514e4e;
+    color: #066D84;
     text-align: center;
     font-size: 2rem;
     font-weight: 700;
@@ -24,30 +24,90 @@
     font-size: 1.05rem;
     font-weight: 550;
     line-height: 1.7;
-    color: #514e4e;
-    background: rgb(235, 251, 252);
+    color: #2B2B2B;
+    background: #b7eaf9;
     padding: 2rem 2.2rem;
     border-radius: 1rem;
     box-shadow: 0 3px 15px rgba(0,0,0,0.08);
 }
 
+.faq-toggle {
+    display: none;
+}
+
 .question-box {
     margin-top: 1.5rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 2rem !important;
     font-weight: 700;
-    font-size: 1.1rem;
-    color: #ffebeb;
-    background-color: #0aa0c1;
-    padding: 0.5rem 0.8rem;
-    border-radius: 3rem;
+    font-size: 1.27rem;
+    color: #514e4e;
+    padding: 0 !important;
+    border-radius: 0.5rem;
     justify-self: center;
 }
 
 .questions {
+    margin-top: 0.7rem;
     margin-bottom: 1rem;
-    text-align: center;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    color: #2B2B2B;
+}
+
+.faq-toggle:checked + .question-box + .questions {
+    max-height: 500px;
+}
+
+.question-box {
+    cursor: pointer;
+    font-weight: bold;
+    padding: 0.75rem 0;
 }
 
 .questions br {
     line-height: 1.9;
+}
+
+.question-box::after {
+  content: " ▾";
+}
+
+.faq-toggle:checked + .question-box::after {
+  content: " ▴";
+}
+
+/*for smaller screens*/
+@media (max-width: 600px) {
+  .faq {
+    padding: 2.5rem 1rem;
+  }
+
+  .faq-inner {
+    max-width: 100%;
+  }
+
+  .faq-title {
+    font-size: 1.6rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .faq-description {
+    padding: 1.25rem 1.1rem;
+    border-radius: 0.8rem;
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  .question-box {
+    font-size: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem !important;
+    padding: 0.6rem 0.75rem !important;
+    border-radius: 0.5rem;
+  }
+
+  .questions {
+    margin-bottom: 0.75rem;
+  }
 }

@@ -18,17 +18,16 @@ function ProductCard({product}) {
         imageContent = (<div className="product-card-placeholder">No image available</div>)}
 
     return (
-    <div className="product-card">
+    <Link to={`/product/${product.id}`} className="product-card">
         <div className="product-image">{imageContent}</div>
         <div className="product-card-body">
             <h3 className="product-card-title">{product.title}</h3>
             <p className="product-description">{shortDescription}</p>
             <div className="product-card-footer">
                 <span className="product-card-price">£{priceInGBP}</span>
-                <Link to={`/product/${product.id}`}><button className="product-button">View</button></Link>
             </div>
         </div>
-    </div>
+    </Link>
   );
 }
 

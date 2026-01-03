@@ -23,14 +23,14 @@ function Navbar({searchText, setSearchText}) {
                 <span className="logo-z">Z</span>
                 <span className="logo-s">S</span>
                  </Link>
+            </div>
+            <div className="right">
                 <nav className="nav">
                     <Link to="/shop" className="nav-link">Shop</Link>
                     <Link to="/about" className="nav-link">About</Link>
                     <Link to="/faq" className="nav-link">FAQ</Link>
                     <Link to="/contact" className="nav-link">Contact</Link>
                 </nav>
-            </div>
-            <div className="right">
                 <button className="magnifying-glass" onClick={() => setShowSearch(!showSearch)}><FaMagnifyingGlass className="icon"/></button>
                 {showSearch && (<form onSubmit={handleSubmit}><input type="search" className="navbar-search" placeholder="Search products..." value={searchText} onChange={(e) => {setSearchText(e.target.value); navigate("/shop");}}/></form>)}
                 <Link to="/shop" className="shopping-bag"><HiShoppingBag className="icon1"/></Link>

@@ -1,5 +1,5 @@
 .about {
-    background-color: rgb(188, 243, 243);
+    background-color: #ffffff;
     padding: 4rem 1.5rem;
     display: flex;
     justify-content: center;
@@ -11,11 +11,10 @@
 }
 
 .about-title {
-    color: #514e4e;
+    color: #066D84;
     text-align: center;
     font-size: 2rem;
     font-weight: 700;
-    letter-spacing: 1px;
     margin-bottom: 2rem;
     text-decoration: underline;
 }
@@ -24,8 +23,8 @@
     font-size: 1.05rem;
     font-weight: 550;
     line-height: 1.7;
-    color: #514e4e;
-    background: rgb(235, 251, 252);
+    color: #2B2B2B;
+    background: #b7eaf9;
     padding: 2rem 2.2rem;
     border-radius: 1rem;
     box-shadow: 0 3px 15px rgba(0,0,0,0.08);
