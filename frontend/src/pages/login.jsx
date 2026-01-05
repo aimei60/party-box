@@ -43,17 +43,17 @@ function AdminLogin() {
     <div>
         <div className="login-page-container">
             <div className="login-page-inner-container">
-                <h1>Login</h1>
-                <div >
-                <form onSubmit={Login}>
-                    <label>Email</label><input value={email} onChange={(e) => setEmail(e.target.value)} type="email"/>
-                    <label>Password</label><input value={password} onChange={(e) => setPassword(e.target.value)} type="password"/>
-                    <button disabled={loading}>
-                        {loading && "Logging in..."}
-                        {!loading && "Log in"}
-                    </button>
-                </form>
-                {error && <p>{error}</p>}
+                <h1 className="login">Login</h1>
+                <div className="form-container">
+                    <form className="form-inner-container" onSubmit={Login}>
+                        <label className="email">Email</label><input value={email} onChange={(e) => setEmail(e.target.value)} type="email"/>
+                        <label className="password">Password</label><input value={password} onChange={(e) => setPassword(e.target.value)} type="password"/>
+                        <button className="login-button" disabled={loading}>
+                            {loading && <div className="loading-text">Logging in...</div>} {/* good for user experience so admin doesnt overlick when logging in */}
+                            {!loading && "Log in"} 
+                        </button>
+                    </form>
+                    {error && <p>{error}</p>}
                 </div>
             </div>
         </div>
