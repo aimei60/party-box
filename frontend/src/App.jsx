@@ -10,6 +10,8 @@ import ProductPage from "./pages/product";
 import AdminLogin from "./pages/login";
 import AdminDashboard from "./pages/dashboard";
 import AdminLayout from "./adminlayout";
+import Admin from "./pages/admin";
+import AdminProduct from "./pages/adminproduct";
 import './css/app.css'
 
 function App() {
@@ -35,6 +37,8 @@ function App() {
          {/* admin routes */}
         <Route element={<AdminLayout/>}>
         <Route path="/dashboard" element={<AdminDashboard/>} />
+        <Route path="/admin/admins" element={<Admin/>}/>
+        <Route path="/admin/products" element={<AdminProduct/>}/>
         </Route>
       </Routes>
     </Router>
