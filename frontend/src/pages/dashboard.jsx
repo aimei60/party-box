@@ -33,16 +33,19 @@ function AdminDashboard() {
     }
     
     return (
-    <div>
-        <h1>Admin Dashboard</h1>
-        <p>{admin.email} ({admin.role})</p>
-        <nav>
-            <ul>
-                <li><Link to="/admin/admins">Manage Admins</Link></li>
-                <li><Link to="/admin/products">Manage Products</Link></li>
-            </ul>
-        </nav>
-    </div>
+        <div className="dashboard-page">
+            <div className="dashboard-container">
+                <h1 className="dashboard-title">Dashboard</h1>
+                <p className="user-details">
+                    <strong>User:</strong> {admin.email}{'  '}
+                    <strong>Role:</strong> {admin.role}
+                </p>
+                <nav>
+                    <Link className="dashboard-links" to="/admin/admins">Manage Admins</Link>
+                    <Link className="dashboard-links" to="/admin/products">Manage Products</Link>
+                </nav>
+            </div>
+        </div>
     );
 }
 
