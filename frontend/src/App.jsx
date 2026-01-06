@@ -8,8 +8,9 @@ import Contact from './pages/contact'
 import About from "./pages/about";
 import ProductPage from "./pages/product";
 import AdminLogin from "./pages/login";
+import AdminDashboard from "./pages/dashboard";
+import AdminLayout from "./adminlayout";
 import './css/app.css'
-
 
 function App() {
   const [searchText, setSearchText] = useState("")
@@ -17,6 +18,7 @@ function App() {
   return (
     <Router>
       <Routes>
+        {/* public shop routes */}
         <Route 
           element={<NavbarLayout searchText={searchText} setSearchText={setSearchText} />} >
           <Route path="/" element={<Homepage />} />
@@ -26,8 +28,14 @@ function App() {
           <Route path="/faq" element={<Faq />} />
           <Route path="/contact" element={<Contact />} />
         </Route>
+
+         {/* admin login */}
         <Route path="/login" element={<AdminLogin />} />
-        {/*<Route path="/dashboard" element={<Dashboard />} />*/}
+
+         {/* admin routes */}
+        <Route element={<AdminLayout/>}>
+        <Route path="/dashboard" element={<AdminDashboard/>} />
+        </Route>
       </Routes>
     </Router>
   );

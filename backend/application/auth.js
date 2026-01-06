@@ -18,7 +18,7 @@ export function generateToken(admin) {
 }
 
 //checks for the correct authorisation
-export function authRequired(req, res, next) {
+export async function authRequired(req, res, next) {
    //gets token from cookies
   const token = req.cookies.adminToken;
 
