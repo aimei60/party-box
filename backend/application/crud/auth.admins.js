@@ -14,7 +14,7 @@ export function toPublicAdmin(admin) {
   };
 }
 
-//create admins and superadmin
+//CREATE: create admins and superadmin
 export async function createAdmin(currentAdmin, { email, password, role }) {
 
   if (!email || !password || !role) {
@@ -48,7 +48,7 @@ export async function createAdmin(currentAdmin, { email, password, role }) {
   return toPublicAdmin(admin);
 }
 
-//get admins/superadmins list 
+//GET: get admins/superadmins list 
 export async function listAdmins(currentAdmin) {
 
   let where = {};
@@ -71,7 +71,7 @@ export async function listAdmins(currentAdmin) {
   });
 }
 
-// returns admins by their ID number so user can edit, view, delete admin details
+//GET: returns admins by their ID number so user can edit, view, delete admin details
 export async function getAdminById(currentAdmin, id) {
 
   const adminId = Number(id);
@@ -96,7 +96,7 @@ export async function getAdminById(currentAdmin, id) {
   return toPublicAdmin(admin);
 }
 
-// updates superadmin and admin's role, email and password
+//UPDATE: updates superadmin and admin's role, email and password
 export async function updateAdmin(currentAdmin, id, { email, password, role }) {
 
   const adminId = Number(id);
@@ -160,7 +160,7 @@ export async function updateAdmin(currentAdmin, id, { email, password, role }) {
   return toPublicAdmin(admin);
 }
 
-//delete superadmin and admins
+//DELETE: delete superadmin and admins
 export async function deleteAdmin(currentAdmin, id) {
 
   const adminId = Number(id);
