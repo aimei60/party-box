@@ -8,8 +8,33 @@ function AdminProduct() {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState("")
     const [success, setSuccess] = useState("")
-    const [image, setImage] = useState({url: "", alt_text: "", sort_order: "", is_primary: false})
-    
+    const [images, setImages] = useState([{ url: "", alt_text: "", sort_order: "", is_primary: false }])
+
+    //for multiple images: image helper functions
+    function addImage() {
+        setImages([
+            ...images,
+            { url: "", alt_text: "", sort_order: "", is_primary: false }
+        ])
+    }
+
+    function removeImage(index) {
+        const copy = [...images]
+        copy.splice(index, 1)
+        setImages(copy)
+    }
+    //handles image edits
+    function handleImageChange(index, e) {
+        const imagesCopy = [...images]
+
+        imagesCopy[index][e.target.name] =
+            e.target.type === "checkbox"
+            ? e.target.checked
+            : e.target.value
+
+        setImages(imagesCopy)
+    }
+
     async function createProduct(e) {
         e.preventDefault()
         setLoading(true);
@@ -19,7 +44,7 @@ function AdminProduct() {
         try {
             // more clearer false or true value 
             let activeValue = true
-            if (form.active === "false" || form.active === false) {
+            if (form.active === "Not Active") {
                 activeValue = false
             }
             
@@ -41,10 +66,17 @@ function AdminProduct() {
 
             const productId = data.id
             //image details such as url and sort order for product images
-            if (image.url.trim() !== "") {
+            //add all images
+            for (let i = 0; i < images.length; i++) {
+                const img = images[i]
+
+                if (img.url.trim() === "") {
+                    continue
+                }
+
                 let sortOrderValue = undefined
-                if (image.sort_order !== "") {
-                    sortOrderValue = Number(image.sort_order)
+                if (img.sort_order !== "") {
+                    sortOrderValue = Number(img.sort_order)
                 }
                 //fetch created product id
                 const imageRes = await fetch(`/api/admin/products/${productId}/images`, {
@@ -66,7 +98,7 @@ function AdminProduct() {
             setSuccess("Successfully created Product!")
             setLoading(false)
             setForm({title: "", short_description: "", price: "", currency: "", active: "", etsy_url:""});
-            setImage({url: "", alt_text: "", sort_order: "", is_primary: false})
+            setImages([{url: "", alt_text: "", sort_order: "", is_primary: false}])
             ListProduct()
         } catch (err) {
             setError("Unable to create product!")
@@ -284,7 +316,7 @@ function AdminProduct() {
         try {//converts form input to boolean because js sees false below from the UI as true
             let activeValue = true
             
-            if (editForm.active === "false" || editForm.active === false) {
+            if (editForm.active === "Not Active") {
                 activeValue = false
             }
 
@@ -389,23 +421,28 @@ function AdminProduct() {
                         <label className="product-label">Active Status
                             <select className="product-input" name="active" value={form.active} onChange={handleChange} required>
                                 <option value="">Select</option>
-                                <option value="true">True</option>
-                                <option value="false">False</option>
+                                <option value="true">Active</option>
+                                <option value="false">Not Active</option>
                             </select></label>
                         <label className="product-label">Etsy URL<input className="product-input" type="text" name="etsy_url" value={form.etsy_url} onChange={handleChange}/></label>
                         <h3 className="product-subtitle">Add Product Image</h3>
-                        <label className="product-label">Image URL<input className="product-input" type="text" name="url" value={image.url} onChange={handleChange}placeholder="https://example.com"/></label>
-                        <label className="product-label">Alt Text<input className="product-input" type="text" name="alt_text" value={image.alt_text} onChange={handleChange} placeholder="Front view"/></label>
-                        <label className="product-label">Sort Order<input className="product-input" type="number" name="sort_order" value={image.sort_order} onChange={handleChange} placeholder="0" /></label>
-                        <label className="product-label">Primary Image<small>(main product image)</small><input type="checkbox" name="is_primary" checked={image.is_primary} onChange={handleChange}/></label>
-                        {/* creating, loading and success status and error statuses*/}
-                        <button className="product-button" type="submit" disabled={loading}>
-                            {loading && "Creating..."}
-                            {!loading && "Create Product"}
-                        </button>
-                    </form>
-                    {success !== "" && <p className="success">{success}</p>}
-                    {error !== "" && <p className="error">{error}</p>}
+                        {images.map(function (img, index) {
+                        return (
+                            <div key={index} className="image-block">
+                            <label className="product-label">Image URL<input className="product-input" type="text" name="url" value={img.url} onChange={function (e) { handleImageChange(index, e) }}placeholder="https://example.com"/></label>
+                            <label className="product-label">Alt Text<input className="product-input" type="text" name="alt_text" value={img.alt_text} onChange={function (e) { handleImageChange(index, e) }} placeholder="Front view"/></label>
+                            <label className="product-label">Sort Order<input className="product-input" type="number" name="sort_order" value={img.sort_order} onChange={function (e) { handleImageChange(index, e) }} placeholder="0"/></label>
+                            <label className="product-label">Primary Image <small>(main product image)</small><input className="checkbox" type="checkbox" name="is_primary" checked={img.is_primary} onChange={function (e) { handleImageChange(index, e) }}/></label>
+                            {images.length > 1 && (<button type="button" className="product-button" onClick={function () { removeImage(index) }}>Remove Image</button>)}</div>)})}
+                            <button type="button" className="product-button"onClick={addImage}>+ Add Another Image</button>
+                            {/* creating, loading and success status and error statuses*/}
+                            <button className="product-button" type="submit" disabled={loading}>
+                                {loading && "Creating..."}
+                                {!loading && "Create Product"}
+                            </button>
+                        </form>
+                        {success !== "" && <p className="success">{success}</p>}
+                        {error !== "" && <p className="error">{error}</p>}
                 </div>
 
                 {/*LIST products */}
@@ -415,13 +452,14 @@ function AdminProduct() {
                 {/* table to enter data and actions for that data*/}
                 {loading === false && error === "" && (
                     <table className="product-table">
-                        <thead>
+                        <thead className='table-bar'>
                             <tr>
-                                <th>ID</th>
-                                <th>Title</th>
-                                <th>Price</th>
-                                <th>Active</th>
-                                <th>Images</th>
+                                <th className='table-title'>ID</th>
+                                <th className='table-title'>Title</th>
+                                <th className='table-title'>Price</th>
+                                <th className='table-title'>Active</th>
+                                <th className='table-title'>Images</th>
+                                <th className='table-title'>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -437,26 +475,26 @@ function AdminProduct() {
                                 }
                             }
                             return (
-                                <tr key={p.id}>
-                                    <td>{p.id}</td>
-                                    <td>{p.title}</td>
-                                    <td>{Number(p.price/100).toFixed(2)} {p.currency}</td>
-                                    <td>{p.active ? "true" : "false"}</td>
-                                    <td>
+                                <tr className='product-detail' key={p.id}>
+                                    <td className='product-detail'>{p.id}</td>
+                                    <td className='product-detail'>{p.title}</td>
+                                    <td className='product-detail'>{Number(p.price/100).toFixed(2)} {p.currency}</td>
+                                    <td className='product-detail'>{p.active ? "true" : "false"}</td>
+                                    <td className='images-cell'>
                                         {/* primary image */}
                                         {primary && (
-                                        <div>
-                                            <div><strong>Primary image</strong></div>
-                                            <img src={primary.url} alt={primary.alt_text || "primary image"}/>
-                                        </div>)}
+                                        <div className="primary-image">
+                                            <div className="primary-label"><strong>Primary image</strong></div>
+                                            <img className="product-image" src={primary.url} alt={primary.alt_text || "primary image"}/>
+                                            </div>)}
                                         {/* list of images*/}
                                         {p.product_images && p.product_images.length > 0 && (
-                                        <ul className="image-list">{p.product_images.map(function (img) {return (
-                                            <li key={img.id} className="image-item">
-                                                <div>{img.alt_text}</div>
-                                                <img src={img.url} alt={img.alt_text}/>
-                                            </li>)})}
-                                        </ul>)}
+                                            <ul className="image-list">{p.product_images.map(function (img) {
+                                                return (
+                                                <li key={img.id} className="image-item"><div className="image-alt">{img.alt_text}</div>
+                                                    <img className="product-image" src={img.url} alt={img.alt_text}/>
+                                                </li>)})}
+                                            </ul>)}
                                     </td>
                                     <td className='product-buttons'>
                                         <button className="product-button" id='edit' type="button" onClick={function () {Edit(p);}}disabled={loading}>Edit</button>
@@ -485,16 +523,17 @@ function AdminProduct() {
                             </select>
                         </label>
                         <label className="product-label">Etsy URL<input className="product-input" type="text" name="etsy_url" value={editForm.etsy_url} onChange={handleEditChange}/></label>
-                        <label className="product-label">Image URL<input className="product-input" type="text" name="url" value={editForm.url} onChange={handleEditChange}/></label> 
+                        <label className="product-label">Image URL <small className='small-image-info'>Only edits the primary image</small><input className="product-input" type="text" name="url" value={editForm.url} onChange={handleEditChange}/></label> 
+                        <p className="hint">To manage additional images, delete and re-add the product!</p>
                         <label className="product-label">Alt Text<input className="product-input" type="text" name="alt_text" value={editForm.alt_text} onChange={handleEditChange}/></label>
                         <label className="product-label">Sort Order<input className="product-input" type="number" name="sort_order" value={editForm.sort_order} onChange={handleEditChange}/></label>
-                        <label className="product-label">Primary Image<input type="checkbox" name="is_primary" checked={editForm.is_primary} onChange={handleEditChange}/></label>
+                        <label className="product-label">Primary Image<input className='checkbox' type="checkbox" name="is_primary" checked={editForm.is_primary} onChange={handleEditChange}/></label>
                         {/*submit and loading statuses */}
-                        <button className="admin-button" type="submit" disabled={loading}>
+                        <button className="product-button" type="submit" disabled={loading}>
                             {loading && "Saving..."}
                             {loading === false && "Save Changes"}
                         </button>
-                        <button className="admin-button" type="button" onClick={cancelEdit} disabled={loading}>Cancel</button>
+                        <button className="product-button" type="button" onClick={cancelEdit} disabled={loading}>Cancel</button>
                         </form>
                     )}
                     </div>
