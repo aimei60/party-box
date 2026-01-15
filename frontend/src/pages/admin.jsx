@@ -315,7 +315,8 @@ function Admin() {
                         <td className='admin-buttons'>
                             <button className="admin-button" id='edit' type="button" onClick={function () {Edit(admin);}}disabled={loading}>Edit</button>
                             {/*DELETE admin */}
-                            <button className="admin-button" id='delete' type="button" onClick={function () {deleteAdmin(admin);}} disabled={loading}>Delete</button></td>
+                            <button className="admin-button" id='delete' type="button" onClick={function () {deleteAdmin(admin);}} disabled={loading}>Delete</button>
+                        </td>
                     </tr>);})}
                 </tbody>
             </table>
