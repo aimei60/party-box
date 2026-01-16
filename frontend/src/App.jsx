@@ -12,6 +12,7 @@ import AdminDashboard from "./pages/dashboard";
 import AdminLayout from "./adminlayout";
 import Admin from "./pages/admin";
 import AdminProduct from "./pages/adminproduct";
+import Privacy from "./pages/privacypage";
 import './css/app.css'
 
 function App() {
@@ -39,6 +40,7 @@ function App() {
         <Route path="/dashboard" element={<AdminDashboard/>} />
         <Route path="/admin/admins" element={<Admin/>}/>
         <Route path="/admin/products" element={<AdminProduct/>}/>
+        <Route path="/privacypolicy" element={<Privacy/>} />
         </Route>
       </Routes>
     </Router>

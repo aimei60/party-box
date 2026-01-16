@@ -18,7 +18,10 @@ function Sidebar({onLogout}) {
                     <Link className="nav-side-link" to="/admin/products"><RiShoppingBasket2Fill className="nav-icon" /><span>Products</span></Link>
                     <Link className="nav-side-link" to="/admin/admins"><IoPeopleSharp className="nav-icon" /><span>Admins</span></Link>
                 </nav>
-                <button className="logout-button" onClick={onLogout}>Logout</button>
+                <div className='sidebar-bottom'>
+                    <Link className='privacy-policy' to='/privacypolicy'>Privacy policy</Link>
+                    <button className="logout-button" onClick={onLogout}>Logout</button>
+                </div>
             </div>
         </div>
     )

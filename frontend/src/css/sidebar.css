@@ -64,6 +64,26 @@
   padding-right: 0.2rem;
 }
 
+.sidebar-bottom {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.privacy-policy {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.88rem;
+  text-decoration: underline;
+  text-align: center;
+  cursor: pointer;
+}
+
+.privacy-policy:hover {
+  color: #F9D801;
+}
+
+
 .logout-button {
   margin-top: auto;
   padding: 0.6rem;
