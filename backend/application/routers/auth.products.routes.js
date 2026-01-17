@@ -51,7 +51,7 @@ router.delete('/:id', authRequired, async (req, res) => {
     
     res.status(200).json(delProd)
   } catch (error) {
-    res.status(400).json({ error: error.message || 'Failed to update new product' })
+    res.status(400).json({ error: error.message || 'Failed to delete product' })
   }
 })
 

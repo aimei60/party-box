@@ -137,12 +137,16 @@ export async function deleteProduct(currentAdmin, id) {
     return null;
   }
 
-  const updated = await prisma.products.update({
-    where: { id: productId },
-    data: { active: false }
+  await prisma.product_images.deleteMany({
+    where: { product_id: productId }
   });
 
-  return updated;
+  const deleted = await prisma.products.delete({
+    where: { id: productId }
+  });
+
+  return deleted;
+
 }
 
 //retrieves all products information, including inactive products

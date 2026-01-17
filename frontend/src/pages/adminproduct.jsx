@@ -42,11 +42,7 @@ function AdminProduct() {
         setSuccess("")
 
         try {
-            // more clearer false or true value 
-            let activeValue = true
-            if (form.active === "Not Active") {
-                activeValue = false
-            }
+            const activeValue = form.active === "true";
             
             //fetch create router
             const response = await fetch("/api/admin/products", {
@@ -83,7 +79,7 @@ function AdminProduct() {
                     method: "POST",
                     credentials: "include",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({url: image.url, alt_text: image.alt_text, sort_order: sortOrderValue, is_primary: image.is_primary})
+                    body: JSON.stringify({url: img.url, alt_text: img.alt_text, sort_order: sortOrderValue, is_primary: img.is_primary})
                 })
 
                 const imageData = await imageRes.json()
@@ -153,33 +149,6 @@ function AdminProduct() {
             });
         }
 
-        if (field === "url") {
-            setImage({
-            ...image,
-            url: value
-            });
-        }
-
-        if (field === "alt_text") {
-            setImage({
-            ...image,
-            alt_text: value
-            });
-        }
-
-        if (field === "sort_order") {
-            setImage({
-            ...image,
-            sort_order: value
-            });
-        }
-
-        if (field === "is_primary") {
-            setImage({
-            ...image,
-            is_primary: event.target.checked
-            });
-        }
     }
 
     //list products
@@ -485,14 +454,14 @@ function AdminProduct() {
                                         {primary && (
                                         <div className="primary-image">
                                             <div className="primary-label"><strong>Primary image</strong></div>
-                                            <img className="product-image" src={primary.url} alt={primary.alt_text || "primary image"}/>
+                                            <img className="admin-product-image" src={primary.url} alt={primary.alt_text || "primary image"}/>
                                             </div>)}
                                         {/* list of images*/}
                                         {p.product_images && p.product_images.length > 0 && (
                                             <ul className="image-list">{p.product_images.map(function (img) {
                                                 return (
                                                 <li key={img.id} className="image-item"><div className="image-alt">{img.alt_text}</div>
-                                                    <img className="product-image" src={img.url} alt={img.alt_text}/>
+                                                    <img className="admin-product-image" src={img.url} alt={img.alt_text}/>
                                                 </li>)})}
                                             </ul>)}
                                     </td>

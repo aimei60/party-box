@@ -43,24 +43,26 @@ function Shop({searchText= ""}) {
 
     return (
         <>
-        <div className="shop-container">
-            <div className="shop-inner-container">
-                <div className="shop-title">Shop</div>
-                {loading && <p>Loading products...</p>}
+        <div className="shop-page">
+            <div className="shop-container">
+                <div className="shop-inner-container">
+                    <div className="shop-title">Shop</div>
+                    {loading && <p>Loading products...</p>}
 
-                {!loading && error && <p className="no-results">{error}</p>}
+                    {!loading && error && <p className="no-results">{error}</p>}
 
-                {!loading && !error && filteredProducts.length === 0 && (
-                    <p className="no-results">No products found.</p>)}
-                
-                <div className="products-grid">
-                    {filteredProducts.map((product) => (
-                        <ProductCard key={product.id} product={product} />
-                    ))}
+                    {!loading && !error && filteredProducts.length === 0 && (
+                        <p className="no-results">No products found.</p>)}
+                    
+                    <div className="products-grid">
+                        {filteredProducts.map((product) => (
+                            <ProductCard key={product.id} product={product} />
+                        ))}
+                    </div>
                 </div>
             </div>
-        </div>
         <Footer/>
+        </div>
         </>
     )
 }
