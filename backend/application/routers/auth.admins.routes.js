@@ -47,7 +47,7 @@ router.post('/login', async (req, res) => {
     res.cookie("adminToken", token, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production", // https in prod and http in dev
-    sameSite: "strict",
+    sameSite: "strict", // Cookie is only sent on same-site requests
     maxAge: 60 * 60 * 1000, // 1 hour
   });
 

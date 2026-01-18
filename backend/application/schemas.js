@@ -3,7 +3,7 @@ import { z } from "zod"
 //Admins table
 const admins = z.object({
     id: z.number().int().optional(),
-    email: z.string.email(),
+    email: z.string().email(),
     password: z.string().min(8),
     role: z.enum(["admin", "superadmin"]).default("admin"),
     created_at: z.iso.datetime().optional(),
