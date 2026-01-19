@@ -1,13 +1,26 @@
 import { useEffect, useState} from 'react'
+import { useLocation, useNavigate } from "react-router-dom";
 import '../css/admin.css'
 
 function Admin() {
+    //for CSRF
+    const location = useLocation();//retrieves info of how user arrived on page
+    const navigate = useNavigate();
+    const csrfToken = location.state?.csrfToken; //reads csrf token from dashboard
+
+    useEffect(() => {
+        if (!csrfToken) {
+        navigate("/dashboard");
+        }
+    }, [csrfToken, navigate]);
+
+    if (!csrfToken) return null;
     //who am i check for react and better UI
     const [currentAdmin, setCurrentAdmin] = useState(null);
 
     async function fetchCurrentAdmin() {
         try {
-        const response = await fetch("/api/admin/admins/me", {
+        const response = await fetch("/api/admin/auth/me", {
             method: "GET",
             credentials: "include"
         });
@@ -56,9 +69,12 @@ function Admin() {
     } 
     
     useEffect(function () {
+        if (!csrfToken) {
+            return;
+        }
         fetchCurrentAdmin();
         listAdmins();
-    }, [])
+    }, [csrfToken])
 
     //create admins
     const [form, setForm] = useState({ email: "", password: "", role: "admin"})
@@ -73,7 +89,10 @@ function Admin() {
         const response = await fetch("/api/admin/admins", {
             method: "POST",
             credentials: "include",
-            headers: {"Content-Type": "application/json"},
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-Token": csrfToken,
+            },
             body: JSON.stringify({email: form.email, password: form.password, role: form.role})
         })
 
@@ -173,7 +192,10 @@ function Admin() {
             const response = await fetch("/api/admin/admins/" + editId, {
                 method: "PUT",
                 credentials: "include",
-                headers: {"Content-Type": "application/json"},
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRF-Token": csrfToken,
+                },
                 body: JSON.stringify({email: editForm.email, password: editForm.password, role: editForm.role})
             })
 
@@ -207,7 +229,10 @@ function Admin() {
             try {
             const response = await fetch("/api/admin/admins/" + admin.id, {
                 method: "DELETE",
-                credentials: "include"
+                credentials: "include",
+                headers: {
+                    "X-CSRF-Token": csrfToken,
+                }
             });
 
             const data = await response.json();

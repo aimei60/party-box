@@ -1,7 +1,20 @@
 import { useEffect, useState} from 'react'
+import { useLocation, useNavigate } from "react-router-dom";
 import '../css/adminproduct.css'
 
 function AdminProduct() {
+    //CSRF
+    const location = useLocation();
+    const navigate = useNavigate();
+    const csrfToken = location.state?.csrfToken;
+
+    useEffect(() => {
+        if (!csrfToken) {
+        navigate("/dashboard");
+        }
+    }, [csrfToken, navigate]);
+
+    if (!csrfToken) return null;
 
     //create product
     const [form, setForm] = useState({title: "", short_description: "", price: "", currency: "", active: "", etsy_url: ""})
@@ -48,7 +61,10 @@ function AdminProduct() {
             const response = await fetch("/api/admin/products", {
                 method: "POST",
                 credentials: "include",
-                headers: {"Content-Type": "application/json"},
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRF-Token": csrfToken,
+                },
                 body: JSON.stringify({title: form.title, short_description: form.short_description, price: Number(form.price), currency: form.currency, active: activeValue, etsy_url: form.etsy_url})
             })
 
@@ -78,7 +94,10 @@ function AdminProduct() {
                 const imageRes = await fetch(`/api/admin/products/${productId}/images`, {
                     method: "POST",
                     credentials: "include",
-                    headers: { "Content-Type": "application/json" },
+                    headers: { 
+                        "Content-Type": "application/json",
+                        "X-CSRF-Token": csrfToken,
+                    },
                     body: JSON.stringify({url: img.url, alt_text: img.alt_text, sort_order: sortOrderValue, is_primary: img.is_primary})
                 })
 
@@ -182,8 +201,11 @@ function AdminProduct() {
     }
 
     useEffect(function () {
+        if (!csrfToken) {
+            return;
+        }
         ListProduct();
-    }, [])
+    }, [csrfToken])
 
     //edit product
     const [editId, setEditId] = useState(null);
@@ -283,17 +305,16 @@ function AdminProduct() {
         setSuccess("")
 
         try {//converts form input to boolean because js sees false below from the UI as true
-            let activeValue = true
-            
-            if (editForm.active === "Not Active") {
-                activeValue = false
-            }
+            const activeValue = editForm.active === "true";
 
             //update product by fetching product id
             const response = await fetch("/api/admin/products/" + editId, {
                 method: "PUT",
                 credentials: "include",
-                headers: {"Content-Type": "application/json"},
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRF-Token": csrfToken,
+                },
                 body: JSON.stringify({title: editForm.title, short_description: editForm.short_description, price: Number(editForm.price), currency: editForm.currency, active: activeValue, etsy_url: editForm.etsy_url})
             })
 
@@ -314,7 +335,10 @@ function AdminProduct() {
                 const imageRes = await fetch("/api/admin/products/" + editId + "/images/" + editForm.imageId, {
                     method: "PUT",
                     credentials: "include",
-                    headers: {"Content-Type": "application/json"},
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-Token": csrfToken,
+                    },
                     body: JSON.stringify({url: editForm.url, alt_text: editForm.alt_text, sort_order: sortOrderValue, is_primary: editForm.is_primary})
                 })
 
@@ -351,8 +375,12 @@ function AdminProduct() {
             try {
             const response = await fetch("/api/admin/products/" + product.id, {
                 method: "DELETE",
-                credentials: "include"
-            });
+                credentials: "include",
+                headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-Token": csrfToken,
+                    },
+                });
 
             const data = await response.json();
 

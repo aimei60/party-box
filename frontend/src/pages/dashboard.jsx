@@ -4,11 +4,13 @@ import '../css/dashboard.css'
 
 function AdminDashboard() {
     const [admin, setAdmin] = useState(null);
+    const [csrfToken, setCsrfToken] = useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {
-        async function loadAdmin() {
+        async function loadAdminAndCSRF() {
             try {
+                //who am i check
                 const res = await fetch("/api/admin/auth/me", { 
                     credentials: "include", 
                 });
@@ -20,15 +22,28 @@ function AdminDashboard() {
 
                 const data = await res.json();
                 setAdmin(data.admin);
+
+                //CSRF token fetch
+                const csrfRes = await fetch("/api/admin/csrf-token", {
+                    credentials: "include",
+                });
+
+                if (!csrfRes.ok) {
+                    throw new Error("Failed to fetch CSRF token");
+                }
+
+                const csrfData = await csrfRes.json();
+                setCsrfToken(csrfData.csrfToken);
             } catch (error) {
+                console.error(error);
                 navigate("/login");
             }
         }
-        loadAdmin();
+        loadAdminAndCSRF();
     }, [navigate]);
 
 
-    if (!admin) {
+    if (!admin || !csrfToken) {
          return <p>Loading...</p>;
     }
     
@@ -41,8 +56,8 @@ function AdminDashboard() {
                     <strong>Role:</strong> {admin.role}
                 </p>
                 <nav>
-                    <Link className="dashboard-links" to="/admin/admins">Manage Admins</Link>
-                    <Link className="dashboard-links" to="/admin/products">Manage Products</Link>
+                    <Link className="dashboard-links" to="/admin/admins" state={{csrfToken}}>Manage Admins</Link>
+                    <Link className="dashboard-links" to="/admin/products" state={{csrfToken}}>Manage Products</Link>
                 </nav>
             </div>
         </div>

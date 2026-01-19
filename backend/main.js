@@ -2,8 +2,10 @@ import express from 'express'
 import cors from "cors"
 import dotenv from 'dotenv'
 import cookieParser from "cookie-parser"
+import csrf from "csurf";
 import helmet from "helmet"
 import rateLimit from "express-rate-limit";
+import { authRequired } from './application/auth.js';
 import adminAuthRouter from './application/routers/auth.admins.routes.js'
 import adminsRouter from './application/routers/auth.admins.routes.js'
 import publicProductsRouter from './application/routers/public.products.routes.js'
@@ -12,6 +14,16 @@ import authImagesRouter from './application/routers/auth.product.images.routes.j
 
 const app = express()
 dotenv.config()
+
+app.set("trust proxy", 1) //trust first proxy in front of app
+
+//redirect to https
+app.use((req, res, next) => {
+  if (process.env.NODE_ENV === "production" && !req.secure) {
+    return res.redirect(`https://${req.headers.host}${req.originalUrl}`);
+  }
+  next();
+});
 
 //JWT env safety checks so we dont get weird failure errors
 if (!process.env.JWT_SECRET) {
@@ -46,11 +58,26 @@ app.use(
 app.use(express.json())
 app.use(cookieParser());
 
+//CSRF Protection: Creates CSRF protection middleware, stores it in cookie,
+const csrfProtection = csrf({
+  cookie: {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict", //Cookie is only sent on same-site requests
+  },
+});
+
+app.get("/api/admin/csrf-token", authRequired, csrfProtection,
+  (req, res) => {
+    res.json({ csrfToken: req.csrfToken() }); //Generate a CSRF token and send it to the frontend
+  }
+);
+
 app.use("/api/admin/auth",authLimiter, adminAuthRouter)
-app.use("/api/admin/admins", adminsRouter)
-app.use("/api/admin/products", authProductsRouter)
+app.use("/api/admin/admins",authRequired, csrfProtection, adminsRouter)
+app.use("/api/admin/products", authRequired, csrfProtection, authProductsRouter)
 app.use("/api/products", publicProductsRouter)
-app.use("/api/admin/products", authImagesRouter)
+app.use("/api/admin/products",authRequired, csrfProtection, authImagesRouter)
 
 const PORT = process.env.PORT
 
