@@ -7,7 +7,7 @@ import helmet from "helmet"
 import rateLimit from "express-rate-limit";
 import { authRequired } from './application/auth.js';
 import adminAuthRouter from './application/routers/auth.admins.routes.js'
-import adminsRouter from './application/routers/auth.admins.routes.js'
+import adminsRouter from './application/routers/admins.routes.js'
 import publicProductsRouter from './application/routers/public.products.routes.js'
 import authProductsRouter from './application/routers/auth.products.routes.js'
 import authImagesRouter from './application/routers/auth.product.images.routes.js'
@@ -77,7 +77,7 @@ app.use("/api/admin/auth",authLimiter, adminAuthRouter)
 app.use("/api/admin/admins",authRequired, csrfProtection, adminsRouter)
 app.use("/api/admin/products", authRequired, csrfProtection, authProductsRouter)
 app.use("/api/products", publicProductsRouter)
-app.use("/api/admin/products",authRequired, csrfProtection, authImagesRouter)
+app.use("/api/admin/product-images",authRequired, csrfProtection, authImagesRouter)
 
 const PORT = process.env.PORT
 
