@@ -6,7 +6,7 @@ function AdminProduct() {
     //CSRF
     const location = useLocation();
     const navigate = useNavigate();
-    const csrfToken = location.state?.csrfToken;
+    const { csrfToken } = location.state || {};
 
     useEffect(() => {
         if (!csrfToken) {

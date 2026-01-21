@@ -6,7 +6,7 @@ function Admin() {
     //for CSRF
     const location = useLocation();//retrieves info of how user arrived on page
     const navigate = useNavigate();
-    const csrfToken = location.state?.csrfToken; //reads csrf token from dashboard
+    const { csrfToken } = location.state || {}; //reads csrf token from dashboard --> container location.state carrying CSRF token from previous page
 
     useEffect(() => {
         if (!csrfToken) {
