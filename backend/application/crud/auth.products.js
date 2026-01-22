@@ -117,7 +117,7 @@ export async function updateProduct(currentAdmin, id, productData) {
   return updated;
 }
 
-// makes a product inactive 
+// delete product
 export async function deleteProduct(currentAdmin, id) {
   if (!currentAdmin || (currentAdmin.role !== "admin" && currentAdmin.role !== "superadmin")) {
     throw new Error("Not allowed");

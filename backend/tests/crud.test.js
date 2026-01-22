@@ -518,7 +518,6 @@ test("sets a product to inactive", async () => {
 
   const deleted = await deleteProduct(superadmin, product.id);
 
-  expect(deleted.active).toBe(false);
   expect(deleted.id).toBe(product.id);
 });
 

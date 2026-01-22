@@ -2,19 +2,39 @@
 import request from "supertest";
 import express from "express";
 import bcrypt from "bcryptjs";
+import cookieParser from "cookie-parser";
+import csrf from "csurf";
 import prisma from "../application/utilities/prisma.js";
 import publicProductsRouter from "../application/routers/public.products.routes.js";
 import authAdminsRouter from "../application/routers/auth.admins.routes.js";
+import adminsRouter from "../application/routers/admins.routes.js";
 import authProductsRouter from "../application/routers/auth.products.routes.js";
 import authProductImagesRouter from "../application/routers/auth.product.images.routes.js";
-import { generateToken } from "../application/auth.js";
+import { authRequired, generateToken } from "../application/auth.js";
 
 const app = express();
 app.use(express.json());
-app.use(publicProductsRouter);
-app.use(authAdminsRouter);
-app.use(authProductsRouter);
-app.use(authProductImagesRouter);
+app.use(cookieParser());
+
+//csrf
+const csrfProtection = csrf({
+  cookie: {
+    httpOnly: true,
+    secure: false, //false for tests only as there is no https
+    sameSite: "strict",
+  },
+});
+
+//csrf token endpoint
+app.get("/api/admin/csrf-token", authRequired, csrfProtection, (req, res) => {
+  res.json({ csrfToken: req.csrfToken() });
+});
+
+app.use("/api/products", publicProductsRouter);
+app.use("/api/admin/auth", authAdminsRouter);
+app.use("/api/admin/admins", authRequired, csrfProtection, adminsRouter);
+app.use("/api/admin/products", authRequired, csrfProtection, authProductsRouter);
+app.use("/api/admin/products-images", authRequired, csrfProtection, authProductImagesRouter);
 
 //set up code
 beforeEach(async () => {
@@ -49,29 +69,57 @@ async function createAdminAndToken(role = "superadmin", email = "admin@example.c
   };
 
   const token = generateToken(publicAdmin);
-
   return { admin, token };
+}
+
+//clean cookies e.g returns csrfSecret=abc
+function cookiePairsFromSetCookie(setCookieHeader) {
+  if (!Array.isArray(setCookieHeader)) 
+    return [];
+  const cookies = [];
+
+  for (let i = 0; i < setCookieHeader.length; i++) {
+    const fullCookie = setCookieHeader[i];
+    const cookiePair = fullCookie.split(";")[0];
+    cookies.push(cookiePair);
+  }
+
+  return cookies;
+}
+
+//asks the server for a CSRF token, saves it, saves the cookie that comes with it, and returns both to be used later
+async function getCsrfTokenAndCookies(token) {
+  const res = await request(app)
+    .get("/api/admin/csrf-token")
+    .set("Cookie", [`adminToken=${token}`]);
+
+  expect(res.status).toBe(200);
+  expect(res.body).toHaveProperty("csrfToken");
+
+  const csrfToken = res.body.csrfToken;
+  const csrfCookies = cookiePairsFromSetCookie(res.headers["set-cookie"] || []);
+
+  return { csrfToken, csrfCookies };
 }
 
 // TESTS FOR PUBLIC PRODUCT ROUTES 
 
 //tests returning all of the products
 test("GET /products returns 200 and an array", async () => {
-  const res = await request(app).get("/products");
-
+  const res = await request(app).get("/api/products");
   expect(res.status).toBe(200);
   expect(Array.isArray(res.body)).toBe(true);
 });
 
 //tests if product id is not in db and returns error
 test("GET /products/:id returns 404 if missing", async () => {
-  const res = await request(app).get("/products/999");
+  const res = await request(app).get("/api/products/999");
   expect(res.status).toBe(404);
   expect(res.body).toEqual({ error: "Product not found" });
 });
 
 //returns the correct product calling its ID
-test("GET /products/:id returns a product when it exists", async () => {
+test("GET /api/products/:id returns a product when it exists", async () => {
   const { admin } = await createAdminAndToken("admin", "public-test@example.com");
 
   const product = await prisma.products.create({
@@ -86,7 +134,7 @@ test("GET /products/:id returns a product when it exists", async () => {
     },
   });
 
-  const res = await request(app).get(`/products/${product.id}`);
+  const res = await request(app).get(`/api/products/${product.id}`);
 
   expect(res.status).toBe(200);
   expect(res.body.title).toBe("Test Product");
@@ -95,7 +143,7 @@ test("GET /products/:id returns a product when it exists", async () => {
 // TESTS FOR AUTH ADMINS ROUTES 
 
 //test to login and get jwt token
-test("POST /auth/login logs in successfully", async () => {
+test("POST /api/admin/auth/login logs in successfully", async () => {
   const password = "secret123";
   const hash = await bcrypt.hash(password, 12);
 
@@ -104,29 +152,38 @@ test("POST /auth/login logs in successfully", async () => {
   });
 
   const res = await request(app)
-    .post("/auth/login")
+    .post("/api/admin/auth/login")
     .send({ email: admin.email, password });
 
   expect(res.status).toBe(200);
-  expect(res.body).toHaveProperty("token");
+  expect(res.body).toHaveProperty("admin");
+
+  let setCookie = "";
+  if (res.headers && res.headers["set-cookie"]) {
+    setCookie = res.headers["set-cookie"].join(";");
+  }
+  expect(setCookie).toContain("adminToken=")
+
 });
 
 //test to raise correct error if missing email or password
-test("POST /auth/login returns 400 if missing fields", async () => {
+test("POST /api/admin/auth returns 400 if missing fields", async () => {
   const res = await request(app)
-  .post("/auth/login")
+  .post("/api/admin/auth/login")
   .send({});
   
 expect(res.status).toBe(400);
 });
 
 //test to create admin
-test("POST /admins creates new admin (superadmin only)", async () => {
+test("POST /api/admin/admins creates new admin (superadmin only)", async () => {
   const { token } = await createAdminAndToken("superadmin", "sa@example.com");
+  const { csrfToken, csrfCookies } = await getCsrfTokenAndCookies(token);
 
   const res = await request(app)
-    .post("/admins")
-    .set("Authorization", `Bearer ${token}`)
+    .post("/api/admin/admins")
+    .set("Cookie", [...csrfCookies, `adminToken=${token}`])
+    .set("X-CSRF-Token", csrfToken)
     .send({ email: "new@example.com", password: "pass123", role: "admin" });
 
   expect(res.status).toBe(201);
@@ -134,7 +191,7 @@ test("POST /admins creates new admin (superadmin only)", async () => {
 });
 
 //test to list admins
-test("GET /admins returns admins list", async () => {
+test("GET /api/admin/admins returns admins list", async () => {
   const { token } = await createAdminAndToken("superadmin", "sa@example.com");
 
   await prisma.admins.create({
@@ -142,8 +199,8 @@ test("GET /admins returns admins list", async () => {
   });
 
   const res = await request(app)
-    .get("/admins")
-    .set("Authorization", `Bearer ${token}`);
+    .get("/api/admin/admins")
+    .set("Cookie", [`adminToken=${token}`])
 
   expect(res.status).toBe(200);
   expect(Array.isArray(res.body)).toBe(true);
@@ -151,12 +208,12 @@ test("GET /admins returns admins list", async () => {
 });
 
 //test to get admin by ID
-test("GET /admins/:id returns 404 if admin missing", async () => {
+test("GET /api/admin/admins/:id returns 404 if admin missing", async () => {
   const { token } = await createAdminAndToken();
 
   const res = await request(app)
-    .get("/admins/999")
-    .set("Authorization", `Bearer ${token}`);
+    .get("/api/admin/admins/999")
+    .set("Cookie", [`adminToken=${token}`])
 
   expect(res.status).toBe(404);
 });
@@ -164,11 +221,12 @@ test("GET /admins/:id returns 404 if admin missing", async () => {
 // TEST FOR AUTH PRODUCT ROUTES 
 
 //test to create product
-test("POST /products (admin) creates a product", async () => {
+test("POST /api/admin/products (admin) creates a product", async () => {
   const { token, admin } = await createAdminAndToken(
     "admin",
     "product-maker@example.com"
   );
+  const { csrfToken, csrfCookies } = await getCsrfTokenAndCookies(token);
 
   const productData = {
     title: "Admin Box",
@@ -179,8 +237,9 @@ test("POST /products (admin) creates a product", async () => {
   };
 
   const res = await request(app)
-    .post("/products")
-    .set("Authorization", `Bearer ${token}`)
+    .post("/api/admin/products")
+    .set("Cookie", [...csrfCookies, `adminToken=${token}`])
+    .set("X-CSRF-Token", csrfToken)
     .send(productData);
 
   expect(res.status).toBe(201);
@@ -205,9 +264,12 @@ test("POST /products/:id/images adds product image", async () => {
     },
   });
 
+  const { csrfToken, csrfCookies } = await getCsrfTokenAndCookies(token);
+
   const res = await request(app)
-    .post(`/products/${product.id}/images`)
-    .set("Authorization", `Bearer ${token}`)
+    .post(`/api/admin/products-images/${product.id}/images`)
+    .set("Cookie", [...csrfCookies, `adminToken=${token}`])
+    .set("X-CSRF-Token", csrfToken)
     .send({
       url: "test.jpg",
       alt_text: "test",
@@ -245,9 +307,12 @@ test("DELETE /products/:id/images/:imgId deletes image", async () => {
     },
   });
 
+  const { csrfToken, csrfCookies } = await getCsrfTokenAndCookies(token);
+
   const res = await request(app)
-    .delete(`/products/${product.id}/images/${image.id}`)
-    .set("Authorization", `Bearer ${token}`);
+    .delete(`/api/admin/products-images/${product.id}/images/${image.id}`)
+    .set("Cookie", [...csrfCookies, `adminToken=${token}`])
+    .set("X-CSRF-Token", csrfToken);
 
   expect(res.status).toBe(200);
   expect(res.body.id).toBe(image.id);

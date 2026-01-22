@@ -34,25 +34,25 @@ test("creates a valid JWT with correct payload", () => {
 });
 
 //tests the correct 401 error is raised within authRequired function
-test("returns 401 error if Authorization header doesn't start with Bearer", () => {
+test("returns 401 error if adminToken cookie is missing", async () => {
 
-  const req = { headers: { authorization: "Token 123" } };
+  const req = { cookies: {} };
   const res = {
     status: jest.fn().mockReturnThis(),
     json: jest.fn()
   };
   const next = jest.fn();
 
-  authRequired(req, res, next);
+  await authRequired(req, res, next);
 
   expect(res.status).toHaveBeenCalledWith(401);
-  expect(res.json).toHaveBeenCalledWith({error: "Missing or invalid Authorization header"});
+  expect(res.json).toHaveBeenCalledWith({error: "Authentication required"});
   expect(next).not.toHaveBeenCalled();
 });
 
 //testing that 401 error occurs (invalid token) in authRequired function
-test("returns 401 if token is invalid", () => {
-  const req = { headers: { authorization: "Bearer invalidtoken" } };
+test("returns 401 if token is invalid", async() => {
+  const req = { cookies: { adminToken: "invalidtoken" } };
   const res = {
     status: jest.fn().mockReturnThis(),
     json: jest.fn()
@@ -64,7 +64,7 @@ test("returns 401 if token is invalid", () => {
       throw new Error("Invalid token");
     });
 
-  authRequired(req, res, next);
+  await authRequired(req, res, next);
 
   expect(verifyMock).toHaveBeenCalledWith("invalidtoken",expect.any(String));
   expect(res.status).toHaveBeenCalledWith(401);
@@ -73,9 +73,9 @@ test("returns 401 if token is invalid", () => {
 });
 
 //correctly returns the user details when the correct auth info is given
-test("calls next() and attaches user to req when token is valid", () => {
+test("calls next() and attaches user to req when token is valid",async () => {
 
-  const req = { headers: { authorization: "Bearer validtoken" } };
+  const req = { cookies: { adminToken: "validtoken" } };
   const res = {
     status: jest.fn().mockReturnThis(),
     json: jest.fn()
@@ -87,7 +87,7 @@ test("calls next() and attaches user to req when token is valid", () => {
   
   const verifyMock = jest.spyOn(jwt, "verify").mockReturnValue(mockPayload);
 
-  authRequired(req, res, next);
+  await authRequired(req, res, next);
 
   expect(verifyMock).toHaveBeenCalledWith("validtoken",expect.any(String));
   expect(req.user).toEqual(mockPayload);
