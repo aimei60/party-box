@@ -1,12 +1,12 @@
 import { useEffect, useState} from 'react'
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useOutletContext} from "react-router-dom";
 import '../css/adminproduct.css'
 
 function AdminProduct() {
     //CSRF
     const location = useLocation();
     const navigate = useNavigate();
-    const { csrfToken } = location.state || {};
+    const { csrfToken } = useOutletContext(); 
 
     useEffect(() => {
         if (!csrfToken) {
@@ -91,7 +91,7 @@ function AdminProduct() {
                     sortOrderValue = Number(img.sort_order)
                 }
                 //fetch created product id
-                const imageRes = await fetch(`/api/admin/products/${productId}/images`, {
+                const imageRes = await fetch(`/api/admin/product-images/${productId}/images`, {
                     method: "POST",
                     credentials: "include",
                     headers: { 
@@ -332,7 +332,7 @@ function AdminProduct() {
                     sortOrderValue = Number(editForm.sort_order)
                 }
                 //get image id to edit
-                const imageRes = await fetch("/api/admin/products/" + editId + "/images/" + editForm.imageId, {
+                const imageRes = await fetch("/api/admin/product-images/" + editId + "/images/" + editForm.imageId, {
                     method: "PUT",
                     credentials: "include",
                     headers: {

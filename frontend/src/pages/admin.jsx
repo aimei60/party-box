@@ -1,12 +1,11 @@
 import { useEffect, useState} from 'react'
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useOutletContext} from "react-router-dom";
 import '../css/admin.css'
 
 function Admin() {
     //for CSRF
-    const location = useLocation();//retrieves info of how user arrived on page
     const navigate = useNavigate();
-    const { csrfToken } = location.state || {}; //reads csrf token from dashboard --> container location.state carrying CSRF token from previous page
+    const { csrfToken } = useOutletContext(); 
 
     useEffect(() => {
         if (!csrfToken) {

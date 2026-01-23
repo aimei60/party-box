@@ -63,7 +63,7 @@ const csrfProtection = csrf({
   cookie: {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
-    sameSite: "strict", //Cookie is only sent on same-site requests
+    sameSite: "lax", //Cookie is only sent on same-site requests
   },
 });
 
