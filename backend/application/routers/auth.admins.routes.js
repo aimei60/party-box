@@ -3,6 +3,8 @@ import express from 'express';
 import prisma from "../utilities/prisma.js";
 import bcrypt from "bcryptjs";
 import {generateToken, authRequired} from '../auth.js';
+import { forgotPassword } from "../forgotPassword/forgotPassword.js";
+import { resetPassword } from "../forgotPassword/resetPassword.js";
 
 const router = express.Router()
 
@@ -73,5 +75,9 @@ router.post('/logout', authRequired, (req, res) => {
 
   res.json({ message: "Logged out" })
 })
+
+router.post("/forgot-password", forgotPassword);
+
+router.post("/reset-password", resetPassword);
 
 export default router

@@ -11,6 +11,10 @@ model admins {
   id                                            Int        @id @default(autoincrement())
   email                                         String     @unique
   password                                      String
+  passwordResetTokenHash                        String?
+  passwordResetExpiresAt                        DateTime?
+  passwordResetUsedAt                           DateTime?
+  mustChangePassword                            Boolean    @default(false)
   role                                          String?    @default("admin")
   created_at                                    DateTime?  @default(now()) @db.Timestamp(6)
   updated_at                                    DateTime?  @default(now()) @db.Timestamp(6)
