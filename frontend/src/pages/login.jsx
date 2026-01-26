@@ -1,5 +1,6 @@
 import { useState } from "react";
 import {useNavigate} from "react-router-dom";
+import { Link } from "react-router-dom";
 import '../css/login.css'
 
 function AdminLogin() {
@@ -48,6 +49,7 @@ function AdminLogin() {
                     <form className="form-inner-container" onSubmit={Login}>
                         <label className="email">Email</label><input value={email} onChange={(e) => setEmail(e.target.value)} type="email"/>
                         <label className="password">Password</label><input value={password} onChange={(e) => setPassword(e.target.value)} type="password"/>
+                        <Link to="/forgot-password" className="forgot-p" >Forgot password?</Link>
                         <button className="login-button" disabled={loading}>
                             {loading && <div className="loading-text">Logging in...</div>} {/* good for user experience so admin doesnt overlick when logging in */}
                             {!loading && "Log in"} 

@@ -1,6 +1,6 @@
 //forgot password send link
 import { z } from "zod";
-import  prisma  from '../utilities/prisma.js'
+import prisma from '../utilities/prisma.js'
 import { makeResetToken, hashResetToken } from "./resetToken.js";
 
 //schema validation
@@ -21,7 +21,7 @@ export async function forgotPassword(req, res) {
     const responseMessage = "If an account exists, we’ve sent a reset link.";
 
     //find admin
-    const admin = await prisma.admin.findUnique({
+    const admin = await prisma.admins.findUnique({
         where: { email },
         select: { id: true },
     });

@@ -13,6 +13,8 @@ import AdminLayout from "./adminlayout";
 import Admin from "./pages/admin";
 import AdminProduct from "./pages/adminproduct";
 import Privacy from "./pages/privacypage";
+import AdminForgotPassword from "./pages/forgotPassword";
+import AdminResetPassword from "./pages/resetPassword";
 import './css/app.css'
 
 function App() {
@@ -34,6 +36,9 @@ function App() {
 
          {/* admin login */}
         <Route path="/login" element={<AdminLogin />} />
+
+        <Route path="forgot-password" element={<AdminForgotPassword />} />
+        <Route path="/admin/reset-password" element={<AdminResetPassword />} />
 
          {/* admin routes */}
         <Route element={<AdminLayout/>}>

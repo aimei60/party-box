@@ -7,7 +7,7 @@ import { hashResetToken } from "./resetToken.js";
 //schema validation
 const schema = z.object({
     token: z.string().min(10),
-    newPassword: z.string().min(12),
+    newPassword: z.string().min(8),
 });
 
 export async function resetPassword(req, res) {
@@ -59,10 +59,10 @@ export async function resetPassword(req, res) {
     const passwordHash = await bcrypt.hash(newPassword, 12);
 
     //save new password and remove reset token
-    await prisma.admin.update({
+    await prisma.admins.update({
         where: { id: admin.id },
         data: {
-            passwordHash,
+            password: passwordHash,
             passwordResetTokenHash: null,
             passwordResetExpiresAt: null,
             passwordResetUsedAt: now,
