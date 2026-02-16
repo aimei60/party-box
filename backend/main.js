@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser"
 import csrf from "csurf";
 import helmet from "helmet"
 import rateLimit from "express-rate-limit";
+import morgan from "morgan"
 import { authRequired } from './application/auth.js';
 import adminAuthRouter from './application/routers/auth.admins.routes.js'
 import adminsRouter from './application/routers/admins.routes.js'
@@ -16,6 +17,8 @@ const app = express()
 dotenv.config()
 
 app.set("trust proxy", 1) //trust first proxy in front of app
+
+app.use(morgan("dev")) //morgan logs dev style
 
 //redirect to https
 app.use((req, res, next) => {
@@ -79,7 +82,13 @@ app.use("/api/admin/products", authRequired, csrfProtection, authProductsRouter)
 app.use("/api/products", publicProductsRouter)
 app.use("/api/admin/product-images",authRequired, csrfProtection, authImagesRouter)
 
-const PORT = process.env.PORT
+
+app.use((err, req, res, next) => {
+  console.error(err.stack)
+  res.status(500).json({ message: "Something went wrong" })
+}) //catches log errors nicely
+
+const PORT = process.env.PORT || 3000
 
 app.listen(PORT, () => {
   console.log(`Server listening on http://localhost:${PORT}`)
