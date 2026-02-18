@@ -82,7 +82,6 @@ app.use("/api/admin/products", authRequired, csrfProtection, authProductsRouter)
 app.use("/api/products", publicProductsRouter)
 app.use("/api/admin/product-images",authRequired, csrfProtection, authImagesRouter)
 
-
 app.use((err, req, res, next) => {
   console.error(err.stack)
   res.status(500).json({ message: "Something went wrong" })
@@ -90,6 +89,6 @@ app.use((err, req, res, next) => {
 
 const PORT = process.env.PORT || 3000
 
-app.listen(PORT, () => {
+app.listen(PORT, "0.0.0.0", () => {
   console.log(`Server listening on http://localhost:${PORT}`)
-})
+}) //0.0.0.0 - Listen on all network interfaces on this machine.
