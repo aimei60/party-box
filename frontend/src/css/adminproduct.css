@@ -82,6 +82,11 @@
   cursor: not-allowed;
 }
 
+.product-table-section {
+  width: 100%;
+  overflow-x: auto;
+}
+
 .admin-product-section .product-button {
   margin-left: 0rem;
 }

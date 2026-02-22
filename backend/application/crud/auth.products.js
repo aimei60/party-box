@@ -158,7 +158,13 @@ export async function getAdminProducts(currentAdmin) {
   const products = await prisma.products.findMany({
     orderBy: { id: "desc" },
     include: {
-      product_images: true
+      product_images: true,
+      admins_products_created_by_admin_idToadmins: {
+        select: { id: true, email: true, role: true, isActive: true },
+      },
+      admins_products_updated_by_admin_idToadmins: {
+        select: { id: true, email: true, role: true, isActive: true },
+      },
     }
   });
 

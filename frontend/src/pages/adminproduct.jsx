@@ -450,62 +450,78 @@ function AdminProduct() {
                 {error && <p className="error">{error}</p>}
                 {/* table to enter data and actions for that data*/}
                 {loading === false && error === "" && (
-                    <table className="product-table">
-                        <thead className='table-bar'>
-                            <tr>
-                                <th className='table-title'>ID</th>
-                                <th className='table-title'>Title</th>
-                                <th className='table-title'>Price</th>
-                                <th className='table-title'>Active</th>
-                                <th className='table-title'>Images</th>
-                                <th className='table-title'>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {products.map(function (p) {
-                            //picks primary image if it exists, otherwise picks first image
-                            let primary = null
-                            if (p.product_images && p.product_images.length > 0) {
-                                primary = p.product_images[0]
-                                for (let i = 0; i < p.product_images.length; i++) {
-                                    if (p.product_images[i].is_primary === true) {
-                                        primary = p.product_images[i]
+                    <div className="product-table-section">
+                        <table className="product-table">
+                            <thead className='table-bar'>
+                                <tr>
+                                    <th className='table-title'>ID</th>
+                                    <th className='table-title'>Title</th>
+                                    <th className='table-title'>Price</th>
+                                    <th className='table-title'>Active</th>
+                                    <th className='table-title'>Created By</th>
+                                    <th className='table-title'>Updated By</th>
+                                    <th className='table-title'>Images</th>
+                                    <th className='table-title'>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {products.map(function (p) {
+                                //picks primary image if it exists, otherwise picks first image
+                                let primary = null
+                                if (p.product_images && p.product_images.length > 0) {
+                                    primary = p.product_images[0]
+                                    for (let i = 0; i < p.product_images.length; i++) {
+                                        if (p.product_images[i].is_primary === true) {
+                                            primary = p.product_images[i]
+                                        }
                                     }
                                 }
-                            }
-                            return (
-                                <tr className='product-detail' key={p.id}>
-                                    <td className='product-detail'>{p.id}</td>
-                                    <td className='product-detail'>{p.title}</td>
-                                    <td className='product-detail'>{Number(p.price/100).toFixed(2)} {p.currency}</td>
-                                    <td className='product-detail'>{p.active ? "true" : "false"}</td>
-                                    <td className='images-cell'>
-                                        {/* primary image */}
-                                        {primary && (
-                                        <div className="primary-image">
-                                            <div className="primary-label"><strong>Primary image</strong></div>
-                                            <img className="admin-product-image" src={primary.url} alt={primary.alt_text || "primary image"}/>
-                                            </div>)}
-                                        {/* list of images*/}
-                                        {p.product_images && p.product_images.length > 0 && (
-                                            <ul className="image-list">{p.product_images.map(function (img) {
-                                                return (
-                                                <li key={img.id} className="image-item"><div className="image-alt">{img.alt_text}</div>
-                                                    <img className="admin-product-image" src={img.url} alt={img.alt_text}/>
-                                                </li>)})}
-                                            </ul>)}
-                                    </td>
-                                    <td className='product-buttons'>
-                                        <button className="product-button" id='edit' type="button" onClick={function () {Edit(p);}}disabled={loading}>Edit</button>
-                                        {/*DELETE product */}
-                                        <button className="product-button" id='delete' type="button" onClick={function () {deleteProduct(p);}} disabled={loading}>Delete</button>
-                                    </td>
-                                </tr>)})}
-                        </tbody>
-                    </table>)}
+                                return (
+                                    <tr className='product-detail' key={p.id}>
+                                        <td className='product-detail'>{p.id}</td>
+                                        <td className='product-detail'>{p.title}</td>
+                                        <td className='product-detail'>{Number(p.price/100).toFixed(2)} {p.currency}</td>
+                                        <td className='product-detail'>{p.active ? "true" : "false"}</td>
+                                        <td className='product-detail'>
+                                            {p.admins_products_created_by_admin_idToadmins &&
+                                            p.admins_products_created_by_admin_idToadmins.email}
+                                            {!p.admins_products_created_by_admin_idToadmins && "-"}
+                                        </td>
+                                        <td className='product-detail'>
+                                            {p.admins_products_updated_by_admin_idToadmins &&
+                                            p.admins_products_updated_by_admin_idToadmins.email}
+                                            {!p.admins_products_updated_by_admin_idToadmins && "-"}
+                                        </td>
+                                        <td className='images-cell'>
+                                            {/* primary image */}
+                                            {primary && (
+                                            <div className="primary-image">
+                                                <div className="primary-label"><strong>Primary image</strong></div>
+                                                <img className="admin-product-image" src={primary.url} alt={primary.alt_text || "primary image"}/>
+                                                </div>)}
+                                            {/* list of images*/}
+                                            {p.product_images && p.product_images.length > 0 && (
+                                                <ul className="image-list">{p.product_images.map(function (img) {
+                                                    return (
+                                                    <li key={img.id} className="image-item"><div className="image-alt">{img.alt_text}</div>
+                                                        <img className="admin-product-image" src={img.url} alt={img.alt_text}/>
+                                                    </li>)})}
+                                                </ul>)}
+                                        </td>
+                                        <td className='product-buttons'>
+                                            <button className="product-button" id='edit' type="button" onClick={function () {Edit(p);}}disabled={loading}>Edit</button>
+                                            {/*DELETE product */}
+                                            <button className="product-button" id='delete' type="button" onClick={function () {deleteProduct(p);}} disabled={loading}>Delete</button>
+                                        </td>
+                                    </tr>
+                                    )
+                                })}
+                            </tbody>
+                        </table>
+                    </div>)}
                 <button className='refresh' onClick={ListProduct}>Refresh</button>
 
-                 {/*EDIT product*/}
+                {/*EDIT product*/}
                 <div className="product-card">
                     <h2 className="product-subtitle">Edit Product</h2>
                     {editId === null && <p>Select a Product and click Edit.</p>}

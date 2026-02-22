@@ -1,3 +1,7 @@
+html, body {
+  overflow-x: hidden;
+}
+
 .admin-section {
   padding: 2rem;
   background: #f6f8fb;
@@ -82,8 +86,14 @@
   margin-left: 0rem;
 }
 
+.admin-table-section {
+  width: 100%;
+  overflow-x: auto;
+}
+
 .admin-table {
   width: 100%;
+  min-width: 700px; 
   border-collapse: collapse;
   margin-top: 1rem;
   font-size: 0.9rem;

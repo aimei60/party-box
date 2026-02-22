@@ -19,7 +19,10 @@ router.post('/login', async (req, res) => {
 
     //Find admin by email
     const admin = await prisma.admins.findUnique({
-      where: { email },
+      where: { 
+        email: email.toLowerCase(),
+        isActive: true, 
+      },
     })
 
     if (!admin) {

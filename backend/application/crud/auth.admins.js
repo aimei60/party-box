@@ -10,7 +10,9 @@ export function toPublicAdmin(admin) {
     email: admin.email,
     role: admin.role,
     created_at: admin.created_at,
-    updated_at: admin.updated_at
+    updated_at: admin.updated_at,
+    isActive: admin.isActive,
+    deletedAt: admin.deletedAt,
   };
 }
 
@@ -66,7 +68,9 @@ export async function listAdmins(currentAdmin) {
       email: true,
       role: true,
       created_at: true,
-      updated_at: true
+      updated_at: true,
+      isActive: true,
+      deletedAt: true
     }
   });
 }
@@ -194,6 +198,30 @@ export async function deleteAdmin(currentAdmin, id) {
     if (superadminCount <= 1) {
       throw new Error("You cannot delete the last superadmin");
     }
+  }
+
+  //check if admin is linked to any products
+  const createdCount = await prisma.products.count({
+    where: { created_by_admin_id: adminId },
+  });
+
+  const updatedCount = await prisma.products.count({
+    where: { updated_by_admin_id: adminId },
+  });
+
+  const isLinkedToProducts = createdCount > 0 || updatedCount > 0;
+
+  //soft delete if linkedtoproducts is above 0
+  if (isLinkedToProducts) {
+    const deactivatedAdmin = await prisma.admins.update({
+      where: { id: adminId },
+      data: {
+        isActive: false,
+        deletedAt: new Date(),
+      },
+    });
+
+    return toPublicAdmin(deactivatedAdmin);
   }
 
   const admin = await prisma.admins.delete({

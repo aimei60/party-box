@@ -243,7 +243,11 @@ function Admin() {
                 setLoading(false);
                 return;
             }
-            setSuccess("Successfully deleted admin!");
+            if (data.action === "deactivated") {
+                setSuccess("Admin deactivated (they are linked to products).");
+            } else {
+                setSuccess("Admin deleted.");
+            }
             setLoading(false);
 
             if (editId === admin.id) {
@@ -319,34 +323,45 @@ function Admin() {
             {error && <p className="error">{error}</p>}
             {/* table to enter data and actions for that data*/}
             {loading === false && error === "" && (
-            <table className="admin-table">
-                <thead>
-                <tr>
-                    <th className='table-title'>ID</th>
-                    <th className='table-title'>Email</th>
-                    <th className='table-title'>Role</th>
-                    <th className='table-title'>Created</th>
-                    <th className='table-title'>Actions</th>
-                </tr>
-                </thead>
-                <tbody>
-                {/* mapping user input*/}
-                {admins.map(function(admin) {
-                    return (
-                    <tr className='user-detail' key={admin.id}>
-                        <td className='user-detail'>{admin.id}</td>
-                        <td className='user-detail'>{admin.email}</td>
-                        <td className='user-detail'>{admin.role}</td>
-                        <td className='user-detail'>{new Date(admin.created_at).toLocaleString()}</td>
-                        <td className='admin-buttons'>
-                            <button className="admin-button" id='edit' type="button" onClick={function () {Edit(admin);}}disabled={loading}>Edit</button>
-                            {/*DELETE admin */}
-                            <button className="admin-button" id='delete' type="button" onClick={function () {deleteAdmin(admin);}} disabled={loading}>Delete</button>
-                        </td>
-                    </tr>);})}
-                </tbody>
-            </table>
-            )}
+                <div className="admin-table-section">
+                    <table className="admin-table">
+                        <thead>
+                        <tr>
+                            <th className='table-title'>ID</th>
+                            <th className='table-title'>Email</th>
+                            <th className='table-title'>Role</th>
+                            <th className='table-title'>Status</th>
+                            <th className='table-title'>Deleted At</th>
+                            <th className='table-title'>Created</th>
+                            <th className='table-title'>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                    {/* mapping user input*/}
+                    {admins.map(function(admin) {
+                        return (
+                        <tr className='user-detail' key={admin.id}>
+                            <td className='user-detail'>{admin.id}</td>
+                            <td className='user-detail'>{admin.email}</td>
+                            <td className='user-detail'>{admin.role}</td>
+                            <td>
+                                {admin.isActive && "Active"}
+                                {!admin.isActive && "Deactivated"}
+                            </td>
+                            <td>
+                                {admin.deletedAt && new Date(admin.deletedAt).toLocaleString()}
+                                {!admin.deletedAt && "-"}
+                            </td>
+                            <td className='user-detail'>{new Date(admin.created_at).toLocaleString()}</td>
+                            <td className='admin-buttons'>
+                                <button className="admin-button" id='edit' type="button" onClick={function () {Edit(admin);}}disabled={loading}>Edit</button>
+                                {/*DELETE admin */}
+                                <button className="admin-button" id='delete' type="button" onClick={function () {deleteAdmin(admin);}} disabled={loading}>Delete</button>
+                            </td>
+                        </tr>);})}
+                    </tbody>
+                </table>
+                </div>)}
             <button className='refresh' onClick={listAdmins}>Refresh</button> 
             {/*EDIT admin*/}
             <div className="admin-card">

@@ -18,6 +18,8 @@ model admins {
   role                                          String?    @default("admin")
   created_at                                    DateTime?  @default(now()) @db.Timestamp(6)
   updated_at                                    DateTime?  @default(now()) @db.Timestamp(6)
+  isActive                                      Boolean    @default(true)
+  deletedAt                                     DateTime?
   products_products_created_by_admin_idToadmins products[] @relation("products_created_by_admin_idToadmins")
   products_products_updated_by_admin_idToadmins products[] @relation("products_updated_by_admin_idToadmins")
 }
