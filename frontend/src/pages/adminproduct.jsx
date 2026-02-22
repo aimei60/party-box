@@ -415,7 +415,7 @@ function AdminProduct() {
                         {/* form to create product UI*/}
                         <label className="product-label">Title<input className="product-input" type="text" name="title" value={form.title} onChange={handleChange} required/></label>
                         <label className="product-label">Short Description<input className="product-input" type="text" name="short_description" value={form.short_description} onChange={handleChange} required /></label>
-                        <label className="product-label">Price<input className="product-input" type="number" name="price" value={form.price} onChange={handleChange} required/></label>
+                        <label className="product-label">Price e.g. 200 for £2.00<input className="product-input" type="number" name="price" value={form.price} onChange={handleChange} required/></label>
                         <label className="product-label">Currency<input className="product-input" type="text" name="currency" value={form.currency} onChange={handleChange} required/></label>
                         <label className="product-label">Active Status
                             <select className="product-input" name="active" value={form.active} onChange={handleChange} required>

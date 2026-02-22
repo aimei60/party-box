@@ -11,66 +11,70 @@ const schema = z.object({
 });
 
 export async function resetPassword(req, res) {
-    const parsed = schema.safeParse(req.body);
-    if (!parsed.success) {
-        return res.status(400).json({ error: "Invalid input"});
-    }
+    try {
+        const parsed = schema.safeParse(req.body);
+        if (!parsed.success) {
+            return res.status(400).json({ error: "Invalid input"});
+        }
 
-    const token = parsed.data.token;
-    const newPassword = parsed.data.newPassword;
+        const token = parsed.data.token;
+        const newPassword = parsed.data.newPassword;
 
-    const pepper = process.env.RESET_TOKEN_PEPPER;
+        const pepper = process.env.RESET_TOKEN_PEPPER;
 
-    if (!pepper) {
-        return res.status(500).json({ error: "RESET_TOKEN_PEPPER missing" });
-    }
+        if (!pepper) {
+            return res.status(500).json({ error: "RESET_TOKEN_PEPPER missing" });
+        }
 
-    const tokenHash = hashResetToken(token, pepper);//hash again before storing
+        const tokenHash = hashResetToken(token, pepper);//hash again before storing
 
-    //get admin with the corresponding token hash
-    const admin = await prisma.admins.findFirst({
-        where: {
-            passwordResetTokenHash: tokenHash,
-        },
-        select: {
-            id: true,
-            passwordResetExpiresAt: true,
-            passwordResetUsedAt: true,
-        },
-    });
+        //get admin with the corresponding token hash
+        const admin = await prisma.admins.findFirst({
+            where: {
+                passwordResetTokenHash: tokenHash,
+            },
+            select: {
+                id: true,
+                passwordResetExpiresAt: true,
+                passwordResetUsedAt: true,
+            },
+        });
 
-    if (!admin) {
-        return res.status(400).json({ error: "Invalid or expired token" });
-    }
+        if (!admin) {
+            return res.status(400).json({ error: "Invalid or expired token" });
+        }
 
-    const now = new Date();
+        const now = new Date();
 
-    if (!admin.passwordResetExpiresAt) {
-        return res.status(400).json({ error: "Invalid or expired token" });
-    }
+        if (!admin.passwordResetExpiresAt) {
+            return res.status(400).json({ error: "Invalid or expired token" });
+        }
 
-    if (now > admin.passwordResetExpiresAt) {
-        return res.status(400).json({ error: "Invalid or expired token" });
-    }
+        if (now > admin.passwordResetExpiresAt) {
+            return res.status(400).json({ error: "Invalid or expired token" });
+        }
 
-    if (admin.passwordResetUsedAt) {
-        return res.status(400).json({ error: "Token already used" });
-    }
+        if (admin.passwordResetUsedAt) {
+            return res.status(400).json({ error: "Token already used" });
+        }
 
-    //Hash new password
-    const passwordHash = await bcrypt.hash(newPassword, 12);
+        //Hash new password
+        const passwordHash = await bcrypt.hash(newPassword, 12);
 
-    //save new password and remove reset token
-    await prisma.admins.update({
-        where: { id: admin.id },
-        data: {
-            passwordHash: passwordHash,
-            passwordResetTokenHash: null,
-            passwordResetExpiresAt: null,
-            passwordResetUsedAt: now,
-            mustChangePassword: false,
-        },
-    });
-
+        //save new password and remove reset token
+        await prisma.admins.update({
+            where: { id: admin.id },
+            data: {
+                password: passwordHash,
+                passwordResetTokenHash: null,
+                passwordResetExpiresAt: null,
+                passwordResetUsedAt: now,
+                mustChangePassword: false,
+            },
+        });
     return res.status(200).json({ message: "Password reset successful." });
+    } catch (err) {
+        console.error("RESET PASSWORD FAILED:", err);
+        return res.status(500).json({ error: "Reset failed" }); 
+    }
 }

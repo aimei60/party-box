@@ -20,9 +20,9 @@ function Homepage() {
             alt: "Peppa Pig Party Box",
         },
         {
-            title: "Minecraft Party Box",
+            title: "Baby Shark Party Box",
             price: "£2.00",
-            image: "/images/f3.png",
+            image: "/images/bs1.png",
             etsy: "/www.etsy.com/minecraft",
             alt: "Minecraft Party Box",
         },
