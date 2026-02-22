@@ -5,6 +5,8 @@ import Footer from "../components/footer";
 import { IoArrowBackCircleSharp } from "react-icons/io5";
 import "../css/product.css";
 
+const API_BASE = import.meta.env.VITE_API_URL ?? "http://localhost:3000";
+
 function ProductPage() {
     const {id} = useParams();
     const [product, setProduct] = useState(null);
@@ -17,7 +19,7 @@ function ProductPage() {
             setLoading(true);
             setError("");
 
-            const response = await fetch(`/api/products/${id}`);
+            const response = await fetch(`${API_BASE}/api/products/${id}`);
 
             if (!response.ok) {
                 throw new Error("Product not found");

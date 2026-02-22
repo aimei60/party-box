@@ -18,7 +18,13 @@ export async function resetPassword(req, res) {
 
     const token = parsed.data.token;
     const newPassword = parsed.data.newPassword;
+
     const pepper = process.env.RESET_TOKEN_PEPPER;
+
+    if (!pepper) {
+        return res.status(500).json({ error: "RESET_TOKEN_PEPPER missing" });
+    }
+
     const tokenHash = hashResetToken(token, pepper);//hash again before storing
 
     //get admin with the corresponding token hash
@@ -35,10 +41,6 @@ export async function resetPassword(req, res) {
 
     if (!admin) {
         return res.status(400).json({ error: "Invalid or expired token" });
-    }
-
-    if (!pepper) {
-        return res.status(500).json({ error: "RESET_TOKEN_PEPPER missing" });
     }
 
     const now = new Date();
@@ -62,7 +64,7 @@ export async function resetPassword(req, res) {
     await prisma.admins.update({
         where: { id: admin.id },
         data: {
-            password: passwordHash,
+            passwordHash: passwordHash,
             passwordResetTokenHash: null,
             passwordResetExpiresAt: null,
             passwordResetUsedAt: now,

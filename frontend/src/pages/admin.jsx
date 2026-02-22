@@ -2,6 +2,8 @@ import { useEffect, useState} from 'react'
 import { useLocation, useNavigate, useOutletContext} from "react-router-dom";
 import '../css/admin.css'
 
+const API_BASE = import.meta.env.VITE_API_URL ?? "http://localhost:3000";
+
 function Admin() {
     //for CSRF
     const navigate = useNavigate();
@@ -19,7 +21,7 @@ function Admin() {
 
     async function fetchCurrentAdmin() {
         try {
-        const response = await fetch("/api/admin/auth/me", {
+        const response = await fetch(`${API_BASE}/api/admin/auth/me`, {
             method: "GET",
             credentials: "include"
         });
@@ -47,7 +49,7 @@ function Admin() {
         setSuccess("");
 
         try {
-            const response = await fetch("/api/admin/admins", {
+            const response = await fetch(`${API_BASE}/api/admin/admins`, {
                 method: "GET",
                 credentials: "include",
             })
@@ -85,7 +87,7 @@ function Admin() {
         setSuccess("")
 
        try {
-        const response = await fetch("/api/admin/admins", {
+        const response = await fetch(`${API_BASE}/api/admin/admins`, {
             method: "POST",
             credentials: "include",
             headers: {
@@ -188,7 +190,7 @@ function Admin() {
         setSuccess("")
 
         try {
-            const response = await fetch("/api/admin/admins/" + editId, {
+            const response = await fetch(`${API_BASE}/api/admin/admins/` + editId, {
                 method: "PUT",
                 credentials: "include",
                 headers: {
@@ -226,7 +228,7 @@ function Admin() {
             setSuccess("");
 
             try {
-            const response = await fetch("/api/admin/admins/" + admin.id, {
+            const response = await fetch(`${API_BASE}/api/admin/admins/` + admin.id, {
                 method: "DELETE",
                 credentials: "include",
                 headers: {

@@ -3,6 +3,8 @@ import Footer from "../components/footer";
 import ProductCard from "../components/productcard";
 import '../css/shop.css'
 
+const API_BASE = import.meta.env.VITE_API_URL ?? "http://localhost:3000";
+
 function Shop({searchText= ""}) {
     const [products, setProducts] = useState([])
     const [loading, setLoading] = useState(true);
@@ -14,7 +16,7 @@ function Shop({searchText= ""}) {
                 setLoading(true)
                 setError("")
 
-                const response = await fetch("/api/products")
+                const response = await fetch(`${API_BASE}/api/products`)
             
                 if (!response.ok) {
                     throw new Error("Failed to fetch products")

@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import '../css/resetpassword.css'
 
+const API_BASE = import.meta.env.VITE_API_URL ?? "http://localhost:3000";
+
 function AdminResetPassword() {
   const location = useLocation();//gets the current url to read values from it
   const navigate = useNavigate();
@@ -23,7 +25,7 @@ function AdminResetPassword() {
     }
 
     try {
-      const res = await fetch("/api/admin/auth/reset-password", {
+      const res = await fetch(`${API_BASE}/api/admin/auth/reset-password`, {
         method: "POST",
         headers: {"Content-Type": "application/json",},
         body: JSON.stringify({

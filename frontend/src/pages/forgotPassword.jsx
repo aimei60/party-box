@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import '../css/forgotpassword.css'
 
+const API_BASE = import.meta.env.VITE_API_URL ?? "http://localhost:3000";
+
 function AdminForgotPassword() {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
@@ -13,7 +15,7 @@ function AdminForgotPassword() {
     setMessage("");
 
     try {
-        const res = await fetch("/api/admin/auth/forgot-password", {
+        const res = await fetch(`${API_BASE}/api/admin/auth/forgot-password`, {
             method: "POST",
             headers: {"Content-Type": "application/json",},
             body: JSON.stringify({ email }),

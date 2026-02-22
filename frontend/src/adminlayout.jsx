@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import Sidebar from "./components/sidebar";
 import './css/adminlayout.css'
 
+const API_BASE = import.meta.env.VITE_API_URL ?? "http://localhost:3000";
+
 function AdminLayout() {
   const [admin, setAdmin] = useState(null);
   const [csrfToken, setCsrfToken] = useState(null);
@@ -11,7 +13,7 @@ function AdminLayout() {
   useEffect(() => {
     async function loadAdminAndCSRF() {
       try {
-        const res = await fetch("/api/admin/auth/me", 
+        const res = await fetch(`${API_BASE}/api/admin/auth/me`, 
           { credentials: "include" });
         if (!res.ok) {
           return navigate("/login");
@@ -20,7 +22,7 @@ function AdminLayout() {
         const data = await res.json();
         setAdmin(data.admin);
 
-        const csrfRes = await fetch("/api/admin/csrf-token", 
+        const csrfRes = await fetch(`${API_BASE}/api/admin/csrf-token`, 
           { credentials: "include" });
         if (!csrfRes.ok) {
           return navigate("/login");
@@ -37,7 +39,7 @@ function AdminLayout() {
   }, [navigate]);
 
   async function handleLogout() {
-    await fetch("/api/admin/auth/logout", {
+    await fetch(`${API_BASE}/api/admin/auth/logout`, {
       method: "POST",
       credentials: "include",
     });

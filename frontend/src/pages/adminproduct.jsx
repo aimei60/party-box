@@ -2,6 +2,8 @@ import { useEffect, useState} from 'react'
 import { useLocation, useNavigate, useOutletContext} from "react-router-dom";
 import '../css/adminproduct.css'
 
+const API_BASE = import.meta.env.VITE_API_URL ?? "http://localhost:3000";
+
 function AdminProduct() {
     //CSRF
     const location = useLocation();
@@ -58,7 +60,7 @@ function AdminProduct() {
             const activeValue = form.active === "true";
             
             //fetch create router
-            const response = await fetch("/api/admin/products", {
+            const response = await fetch(`${API_BASE}/api/admin/products`, {
                 method: "POST",
                 credentials: "include",
                 headers: {
@@ -91,7 +93,7 @@ function AdminProduct() {
                     sortOrderValue = Number(img.sort_order)
                 }
                 //fetch created product id
-                const imageRes = await fetch(`/api/admin/product-images/${productId}/images`, {
+                const imageRes = await fetch(`${API_BASE}/api/admin/product-images/${productId}/images`, {
                     method: "POST",
                     credentials: "include",
                     headers: { 
@@ -180,7 +182,7 @@ function AdminProduct() {
 
         // fetch read router
         try {
-            const response = await fetch("/api/admin/products", {
+            const response = await fetch(`${API_BASE}/api/admin/products`, {
                 method: "GET",
                 credentials: "include",
             })
@@ -308,7 +310,7 @@ function AdminProduct() {
             const activeValue = editForm.active === "true";
 
             //update product by fetching product id
-            const response = await fetch("/api/admin/products/" + editId, {
+            const response = await fetch(`${API_BASE}/api/admin/products/` + editId, {
                 method: "PUT",
                 credentials: "include",
                 headers: {
@@ -332,7 +334,7 @@ function AdminProduct() {
                     sortOrderValue = Number(editForm.sort_order)
                 }
                 //get image id to edit
-                const imageRes = await fetch("/api/admin/product-images/" + editId + "/images/" + editForm.imageId, {
+                const imageRes = await fetch(`${API_BASE}/api/admin/product-images/` + editId + "/images/" + editForm.imageId, {
                     method: "PUT",
                     credentials: "include",
                     headers: {
@@ -373,7 +375,7 @@ function AdminProduct() {
 
             //get product id
             try {
-            const response = await fetch("/api/admin/products/" + product.id, {
+            const response = await fetch(`${API_BASE}/api/admin/products/` + product.id, {
                 method: "DELETE",
                 credentials: "include",
                 headers: {

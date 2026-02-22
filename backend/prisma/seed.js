@@ -2,6 +2,36 @@ import prisma from "../application/utilities/prisma.js"
 import bcrypt from "bcrypt";
 
 /*async function main() {
+  const email = process.env.SEED_ADMIN_EMAIL;
+  const password = process.env.SEED_ADMIN_PASSWORD;
+
+  if (!email || !password) {
+    throw new Error("Missing SEED_ADMIN_EMAIL or SEED_ADMIN_PASSWORD");
+  }
+
+  const hashedPassword = await bcrypt.hash(password, 10);
+
+  await prisma.admins.upsert({
+    where: { email },
+    update: {},
+    create: {
+      email,
+      password: hashedPassword,
+      role: "superadmin",
+    },
+  });
+}
+
+main()
+  .catch((e) => {
+    console.error("Seed failed:", e);
+    process.exit(1);
+  })
+  .finally(async () => {
+    await prisma.$disconnect();
+  });
+
+async function main() {
     await prisma.products.createMany({
         data: [
             {
@@ -258,3 +288,4 @@ main()
   .catch(console.error)
   .finally(() => prisma.$disconnect());
   */
+ 
