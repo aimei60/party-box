@@ -63,11 +63,18 @@ app.use(express.json())
 app.use(cookieParser());
 
 //CSRF Protection: Creates CSRF protection middleware, stores it in cookie,
+const isProduction = process.env.NODE_ENV === "production";
+
+let sameSiteValue = "lax";
+if (isProduction) {
+  sameSiteValue = "none";
+}
+
 const csrfProtection = csrf({
   cookie: {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "lax", //Cookie is only sent on same-site requests
+    secure: isProduction,
+    sameSite: sameSiteValue,
   },
 });
 

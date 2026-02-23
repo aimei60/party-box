@@ -48,10 +48,16 @@ router.post('/login', async (req, res) => {
     const token = generateToken(publicAdmin)
 
     // set HTTP-only cookie
+    const isProduction = process.env.NODE_ENV === "production";
+    let sameSiteValue = "lax";
+    if (isProduction) {
+      sameSiteValue = "none";
+    }
+
     res.cookie("adminToken", token, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production", // https in prod and http in dev
-    sameSite: "strict", // Cookie is only sent on same-site requests
+    secure: isProduction, 
+    sameSite: sameSiteValue,
     maxAge: 60 * 60 * 1000, // 1 hour
   });
 
