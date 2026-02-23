@@ -71,7 +71,7 @@ const csrfProtection = csrf({
   },
 });
 
-app.get("/api/admin/csrf-token", authRequired, csrfProtection,
+app.get("/api/admin/csrf-token", csrfProtection,
   (req, res) => {
     res.json({ csrfToken: req.csrfToken() }); //Generate a CSRF token and send it to the frontend
   }
