@@ -49,6 +49,8 @@ const authLimiter = rateLimit({
 const allowedOrigins = [
   "http://localhost:5173",
   "http://localhost:3000",
+  "https://www.zogystudio.com",
+  "https://zogystudio.com",
   process.env.FRONTEND_URL,
 ].filter(Boolean)
 
