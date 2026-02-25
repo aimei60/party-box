@@ -2,6 +2,7 @@
 import { z } from "zod";
 import prisma from '../utilities/prisma.js'
 import { makeResetToken, hashResetToken } from "./resetToken.js";
+import { sendPasswordResetEmail } from "../utilities/email.js";
 
 //schema validation
 const schema = z.object({email: z.string().email(),});
@@ -47,13 +48,13 @@ export async function forgotPassword(req, res) {
         },
     });
 
-    // print link instead of emailing it: CHANGE LATER
-    const resetLink =
-        process.env.APP_BASE_URL +
-        "/admin/reset-password?token=" +
-        rawToken;
+    const resetLink = process.env.APP_BASE_URL + "/admin/reset-password?token=" + rawToken;
 
-    console.log("[ADMIN RESET LINK]", resetLink);
+    try {
+        await sendPasswordResetEmail({ to: email, resetLink });
+    } catch (err) {
+        console.error("Forgot Email Password Error:", err);
+    }
 
     return res.status(200).json({ message: responseMessage });
 }
