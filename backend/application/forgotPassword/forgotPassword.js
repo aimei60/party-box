@@ -2,7 +2,7 @@
 import { z } from "zod";
 import prisma from '../utilities/prisma.js'
 import { makeResetToken, hashResetToken } from "./resetToken.js";
-import { sendPasswordResetEmail } from "../utilities/email.js";
+import { sendPasswordResetEmail } from "../forgotPassword/email.js";
 
 //schema validation
 const schema = z.object({email: z.string().email(),});
