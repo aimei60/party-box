@@ -169,3 +169,17 @@ resource "aws_iam_user_policy" "account_images_uploader" {
 resource "aws_iam_access_key" "account_images_uploader" {
   user = aws_iam_user.account_images_uploader.name
 }
+
+//aws_s3_bucket_lifecycle_configuration
+resource "aws_s3_bucket_lifecycle_configuration" "account_images_lifecycle" {
+  bucket = aws_s3_bucket.account_images.id
+
+  rule {
+    id = "delete-old-versions"
+    status = "Enabled"
+
+    noncurrent_version_expiration {
+      noncurrent_days = 30
+    }
+  }
+}

@@ -11,6 +11,6 @@ output "account_images_access_key_id" {
 }
 
 output "account_images_secret_access_key" {
-  value     = aws_iam_access_key.account_images_uploader.secret
+  value = aws_iam_access_key.account_images_uploader.secret
   sensitive = true
 }
