@@ -5,8 +5,8 @@ const region = process.env.AWS_REGION;
 const accessKeyId = process.env.AWS_ACCESS_KEY_ID;
 const secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
 
-const bucketName = process.env.ACCOUNT_IMAGES_BUCKET_NAME;
-const cloudfrontDomain = process.env.ACCOUNT_IMAGES_CLOUDFRONT_DOMAIN;
+const bucketName = process.env.S3_BUCKET_NAME;
+const cloudfrontDomain = process.env.IMAGE_BASE_URL;
 
 //creates connection to S3 
 const s3 = new S3Client({
