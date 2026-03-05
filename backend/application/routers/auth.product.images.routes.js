@@ -1,9 +1,44 @@
 //router functions for product images
 import express from 'express';
+import multer from "multer";
 import {addProductImage, updateProductImage, deleteProductImage} from '../crud/auth.product.images.js';
 import {authRequired} from '../auth.js';
+import { uploadProductImageToS3 } from "../utilities/s3Upload.js";
 
 const router = express.Router()
+
+//for file uploads keep in memory and reject if its bigger than 5MB
+const upload = multer({
+  storage: multer.memoryStorage(),
+  limits: {
+    fileSize: 20 * 1024 * 1024, //20MB
+  },
+});
+
+//upload image
+router.post("/upload", authRequired, upload.single("image"), async (req, res) => {
+  try {
+    const currentAdmin = req.user;
+
+    if (!currentAdmin || (currentAdmin.role !== "admin" && currentAdmin.role !== "superadmin")) {
+      return res.status(403).json({ error: "Not allowed" });
+    }
+
+    const productIdRaw = req.body.productId;
+    const productId = Number(productIdRaw);
+
+    if (isNaN(productId)) {
+      return res.status(400).json({ error: "productId must be a number" });
+    }
+
+    const file = req.file;
+    const uploaded = await uploadProductImageToS3(file, productId);
+
+    return res.status(201).json({ url: uploaded.url, key: uploaded.key });
+  } catch (error) {
+    return res.status(400).json({ error: error.message || "Upload failed" });
+  }
+});
 
 //router function to add product image by admin/superadmin
 router.post('/:productId/images', authRequired, async (req, res) => {

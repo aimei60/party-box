@@ -23,13 +23,13 @@ function AdminProduct() {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState("")
     const [success, setSuccess] = useState("")
-    const [images, setImages] = useState([{ url: "", alt_text: "", sort_order: "", is_primary: false }])
+    const [images, setImages] = useState([{ url: "", file: null, alt_text: "", sort_order: "", is_primary: false }])
 
     //for multiple images: image helper functions
     function addImage() {
         setImages([
             ...images,
-            { url: "", alt_text: "", sort_order: "", is_primary: false }
+            { url: "",file: null, alt_text: "", sort_order: "", is_primary: false }
         ])
     }
 
@@ -40,14 +40,38 @@ function AdminProduct() {
     }
     //handles image edits
     function handleImageChange(index, e) {
-        const imagesCopy = [...images]
+    const imagesCopy = [...images];
 
-        imagesCopy[index][e.target.name] =
-            e.target.type === "checkbox"
-            ? e.target.checked
-            : e.target.value
+    const fieldName = e.target.name;
+    const fieldType = e.target.type;
 
-        setImages(imagesCopy)
+    if (fieldType === "checkbox") {
+        imagesCopy[index][fieldName] = e.target.checked;
+    } else {
+        imagesCopy[index][fieldName] = e.target.value;
+    }
+
+    if (fieldName === "url") {
+        if (imagesCopy[index].url.trim() !== "") {
+        imagesCopy[index].file = null;
+        }
+    }
+
+    setImages(imagesCopy);
+    }
+
+    function handleImageFileChange(index, e) {
+        const copy = [...images];
+        const files = e.target.files;
+        
+        if (files && files.length > 0) {
+            copy[index].file = files[0];
+            copy[index].url = "";
+        } else {
+            copy[index].file = null;
+        }
+
+        setImages(copy);
     }
 
     async function createProduct(e) {
@@ -83,9 +107,46 @@ function AdminProduct() {
             //add all images
             for (let i = 0; i < images.length; i++) {
                 const img = images[i]
+                
+                //if there is a file, upload the file
+                let finalUrl = ""
 
-                if (img.url.trim() === "") {
-                    continue
+                if (img.file) {
+                    const formData = new FormData();
+                    formData.append("productId", String(productId));
+                    formData.append("image", img.file);
+
+                    const uploadRes = await fetch(`${API_BASE}/api/admin/product-images/upload`, {
+                    method: "POST",
+                    credentials: "include",
+                    headers: {
+                        "X-CSRF-Token": csrfToken,
+                    },
+                    
+                    body: formData,
+                    });
+
+                    const uploadData = await uploadRes.json();
+
+                    if (uploadRes.ok === false) {
+                    setError(uploadData.error || "Failed to upload image");
+                    setLoading(false);
+                    return;
+                    }
+
+                    finalUrl = uploadData.url;
+                }
+
+                //if no file, fall back to URL field
+                if (finalUrl === "") {
+                    if (img.url && img.url.trim() !== "") {
+                    finalUrl = img.url.trim();
+                    }
+                }
+
+                //if still no url, skip image
+                if (finalUrl === "") {
+                    continue;
                 }
 
                 let sortOrderValue = undefined
@@ -100,7 +161,7 @@ function AdminProduct() {
                         "Content-Type": "application/json",
                         "X-CSRF-Token": csrfToken,
                     },
-                    body: JSON.stringify({url: img.url, alt_text: img.alt_text, sort_order: sortOrderValue, is_primary: img.is_primary})
+                    body: JSON.stringify({url: finalUrl, alt_text: img.alt_text, sort_order: sortOrderValue, is_primary: img.is_primary})
                 })
 
                 const imageData = await imageRes.json()
@@ -115,7 +176,7 @@ function AdminProduct() {
             setSuccess("Successfully created Product!")
             setLoading(false)
             setForm({title: "", short_description: "", price: "", currency: "", active: "", etsy_url:""});
-            setImages([{url: "", alt_text: "", sort_order: "", is_primary: false}])
+            setImages([{url: "", file: null, alt_text: "", sort_order: "", is_primary: false}])
             ListProduct()
         } catch (err) {
             setError("Unable to create product!")
@@ -429,6 +490,7 @@ function AdminProduct() {
                         return (
                             <div key={index} className="image-block">
                             <label className="product-label">Image URL<input className="product-input" type="text" name="url" value={img.url} onChange={function (e) { handleImageChange(index, e) }}placeholder="https://example.com"/></label>
+                            <label className="product-label">Upload Image File<input className="product-input" type="file" accept="image/png,image/jpeg,image/webp" onChange={function (e) { handleImageFileChange(index, e); }}/></label>
                             <label className="product-label">Alt Text<input className="product-input" type="text" name="alt_text" value={img.alt_text} onChange={function (e) { handleImageChange(index, e) }} placeholder="Front view"/></label>
                             <label className="product-label">Sort Order<input className="product-input" type="number" name="sort_order" value={img.sort_order} onChange={function (e) { handleImageChange(index, e) }} placeholder="0"/></label>
                             <label className="product-label">Primary Image <small>(main product image)</small><input className="checkbox" type="checkbox" name="is_primary" checked={img.is_primary} onChange={function (e) { handleImageChange(index, e) }}/></label>
