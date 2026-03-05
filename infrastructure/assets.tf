@@ -104,7 +104,7 @@ data "aws_iam_policy_document" "account_images_bucket_policy" {
     effect = "Allow"
 
     actions = [
-      "s3:GetObject"
+      "s3:GetObject",
     ]
 
     resources = [
@@ -155,7 +155,7 @@ data "aws_iam_policy_document" "account_images_uploader_policy" {
       "s3:GetObject",
       "s3:DeleteObject"
     ]
-    resources = ["${aws_s3_bucket.account_images.arn}/${local.account_images_prefix}/*"]
+    resources = ["${aws_s3_bucket.account_images.arn}/product-images/*"]
   }
 }
 
