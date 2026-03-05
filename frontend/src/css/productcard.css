@@ -9,7 +9,7 @@
 
 .product-image {
   width: 100%;
-  aspect-ratio: 4 / 3; /*for better scaling*/
+  height: 260px;
   background: #ffffff !important;
   border-radius: 1rem 1rem 0 0;
   overflow: hidden;
@@ -20,6 +20,14 @@
   height: 100%;
   object-fit: cover;
   display: block;
+}
+
+.product-card-placeholder {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
 }
 
 .product-card-body {
