@@ -3,7 +3,7 @@ import express from 'express';
 import multer from "multer";
 import {addProductImage, updateProductImage, deleteProductImage} from '../crud/auth.product.images.js';
 import {authRequired} from '../auth.js';
-import { uploadProductImageToS3 } from "../utilities/s3Upload.js";
+import { uploadProductImageToS3 } from "../utilities/s3Uploads.js";
 
 const router = express.Router()
 
