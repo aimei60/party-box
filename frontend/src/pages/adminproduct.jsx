@@ -107,6 +107,8 @@ function AdminProduct() {
             //add all images
             for (let i = 0; i < images.length; i++) {
                 const img = images[i]
+
+                console.log("IMAGE LOOP item", i, "file:", img.file, "url:", img.url);
                 
                 //if there is a file, upload the file
                 let finalUrl = ""
