@@ -1,0 +1,27 @@
+name: Terraform CI
+
+on:
+  pull_request:
+    paths:
+      - 'infrastructure/**'
+  push:
+    branches: [main]
+    paths:
+      -  'infrastructure/**'
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: infrastructure
+
+    steps:
+        - uses: actions/checkout@v4
+
+        - uses: hashicorp/setup-terraform@v3
+          with:
+            terraform_version: 1.14.3
+
+        - run: terraform init
+        - run: terraform validate
