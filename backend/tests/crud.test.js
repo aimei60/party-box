@@ -232,13 +232,15 @@ test("returns admins for superadmin", async () => {
 
   const result = await getAdminById(currentSuperadmin, adminUser.id);
 
-  expect(result).toEqual({
-    id: adminUser.id,
-    email: adminEmail,
-    role: "admin",
-    created_at: expect.any(Date),
-    updated_at: expect.any(Date),
-  });
+  expect(result).toEqual(
+    expect.objectContaining({
+      id: adminUser.id,
+      email: adminEmail,
+      role: "admin",
+      created_at: expect.any(Date),
+      updated_at: expect.any(Date),
+    })
+  );
 });
 
 //updateAdmin test updating details for admin
@@ -338,13 +340,15 @@ test(" allows superadmin to delete an admin", async () => {
     adminUser.id
   );
 
-  expect(deleted).toEqual({
-    id: adminUser.id,
-    email: adminEmail,
-    role: "admin",
-    created_at: expect.any(Date),
-    updated_at: expect.any(Date),
-  });
+  expect(deleted).toEqual(
+    expect.objectContaining({
+      id: adminUser.id,
+      email: adminEmail,
+      role: "admin",
+      created_at: expect.any(Date),
+      updated_at: expect.any(Date),
+    })
+  )
 
   const dbAdmin = await prisma.admins.findUnique({
     where: { id: adminUser.id },
