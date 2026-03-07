@@ -11,6 +11,9 @@ jobs:
     defaults:
       run:
         working-directory: frontend
+    env: 
+      DATABASE_URL: ${{ secrets.TEST_DATABASE_URL }}
+
 
     steps:
       - uses: actions/checkout@v4
