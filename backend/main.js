@@ -13,8 +13,11 @@ import publicProductsRouter from './application/routers/public.products.routes.j
 import authProductsRouter from './application/routers/auth.products.routes.js'
 import authImagesRouter from './application/routers/auth.product.images.routes.js'
 
+if (process.env.NODE_ENV !== "test") {
+  dotenv.config()
+}
+
 const app = express()
-dotenv.config()
 
 app.set("trust proxy", 1) //trust first proxy in front of app
 

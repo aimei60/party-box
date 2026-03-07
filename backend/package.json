@@ -30,7 +30,7 @@
   "scripts": {
     "dev": "nodemon node main.js",
     "start": "node main.js",
-    "test": "dotenv -e .env.test cross-env NODE_OPTIONS=--experimental-vm-modules jest --runInBand"
+    "test": "dotenv -e .env.test cross-env NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules jest --runInBand"
   },
   "prisma": {
     "seed": "node prisma/seed.js"
