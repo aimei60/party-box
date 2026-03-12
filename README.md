@@ -86,6 +86,6 @@ Here is the preview of the website
 
 ## Credits
 
-[Host a static websitre in AWS S3 and CloudFront](https://www.youtube.com/watch?v=bK6RimAv2nQ) - Used to learn the basics setting up the S3 image storage with CloudFront.
+[Host a static website in AWS S3 and CloudFront](https://www.youtube.com/watch?v=bK6RimAv2nQ) - Used to learn the basics setting up the S3 image storage with CloudFront.
 
 [Terraform - Automate your AWS cloud infrastructure](https://www.youtube.com/watch?v=SLB_c_ayRMo) - Used to learn the basics of Terraform.
