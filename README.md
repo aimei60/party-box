@@ -53,7 +53,7 @@ The secondary users are the business owner and administrators who manage the web
 
 ## Technical Decisions
 
-- **React** was used to create easy component interfaces for easier management and to reuse UI elements across the website.
+- **React** was used to create reusable component based interfaces, allowing UI elements to be easily managed and reused across the website.
 
 - **Prisma** was chosen instead of raw SQL queries to simplify database operations and for safety purposes e.g. preventing SQL injection with user input by using parameterised queries.
 
@@ -64,6 +64,8 @@ The secondary users are the business owner and administrators who manage the web
 - **Terraform** was chosen to manage cloud infrastrucutre easily and in a repeatable way.
 
 - **WebAIM** was used to select appropriate colour patterns to ensure accessibility best practises.
+
+- **Security** best practices were implemented across the backend, including JWT authentication stored in secure HttpOnly cookies, bcrypt password hashing, rate limiting on admin authentication routes, input validation with Zod, secure HTTP headers via Helmet, and strict CORS configuration to protect the admin system.
 
 ## Live Demo
 
