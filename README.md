@@ -86,6 +86,12 @@ Here is the preview of the website
 ![Screenshot of product page part 1](screenshots/s7.png)
 ![Screenshot of product page part 2](screenshots/s8.png)
 
+## Running Locally
+
+This project was developed for a client. For security and confidentiality reasons, full local setup instructions are not provided.
+
+The live site demonstrates the application functionality.
+
 ## Credits
 
 [Host a static website in AWS S3 and CloudFront](https://www.youtube.com/watch?v=bK6RimAv2nQ) - Used to learn the basics setting up the S3 image storage with CloudFront.
