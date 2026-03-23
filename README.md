@@ -67,7 +67,7 @@ The secondary users are the business owner and administrators who manage the web
 
 - To implement backend testing, **Jest** was used to verify authentication logic and error handling. **Supertest** was also used to test the Express endpoints.
 
-- **Security** best practices were implemented across the backend, including JWT authentication stored in secure HttpOnly cookies, bcrypt password hashing, rate limiting on admin authentication routes, input validation with Zod, secure HTTP headers via Helmet, and strict CORS configuration to protect the admin system.
+- **Security** best practices were implemented across the backend, including JWT authentication stored in secure HttpOnly cookies, CSRF protection, bcrypt password hashing, rate limiting on admin authentication routes, input validation with Zod, secure HTTP headers via Helmet, and strict CORS configuration to protect the admin system.
 
 ## Live Demo
 
