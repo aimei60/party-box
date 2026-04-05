@@ -24,7 +24,7 @@ function Homepage() {
             price: "£2.00",
             image: "/images/bs1.png",
             etsy: "https://www.etsy.com/uk/listing/1589291641/baby-shark-personalized-party-favor-box?sr_prefetch=0&pf_from=shop_home&ref=shop_home_active_4&logging_key=04239e180a8c155f3ee4ad901a7f401621eabdc2%3A1589291641",
-            alt: "Minecraft Party Box",
+            alt: "Baby Shark Party Box",
         },
     ]
     return (
@@ -36,11 +36,11 @@ function Homepage() {
                 <div className="bestseller-title">Shop Best Sellers</div>
                 <div className="bestseller-favourite">Customer's favourite party boxes</div>
                 <div className="boxes-grid">{bestSellers.map((item) => (
-                    <Link to="/shop" className="boxes-section" key={item.title}>
+                    <a href={item.etsy} className="boxes-section" key={item.title} target="_blank" rel="noopener noreferrer">
                     <div className="product-picture"><img src={item.image} alt={item.alt} /></div>
                     <div className="product-title">{item.title}</div>
                     <div className="product-price">{item.price}</div>
-                    </Link>))}
+                    </a>))}
                 </div>
                 <Link to="/shop" className="shop-all">Shop all products</Link>
             </div>
